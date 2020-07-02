@@ -7,6 +7,7 @@ import { Auth } from './pages/Auth';
 import { Registration } from './pages/Registration';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { Blog } from './pages/Blog';
 
 function App() {
   return (
@@ -16,10 +17,11 @@ function App() {
           <div className="content">
             <Switch>
               <Route path={'/'} exact component={Home}/>
-              <Route path={'/training'} exact component={Training}/>
-              <Route path={'/about'} exact component={About}/>
-              <Route path={'/auth'} exact component={Auth}/>
-              <Route path={'/register'} exact component={Registration}/>
+              <Route path={'/blog'} component={Blog}/>
+              <Route path={'/training'} component={Training}/>
+              <Route path={'/about'} component={About}/>
+              <Route path={'/auth'} component={Auth}/>
+              <Route path={'/register'} component={Registration}/>
             </Switch>
           </div>
           <Footer />

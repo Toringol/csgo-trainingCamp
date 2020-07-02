@@ -7,7 +7,7 @@ export const Navbar = () => (
         <nav className="navbar">
             <ul className="nav__links">
                 <li>
-                    <NavLink className="nav__link" to="/">
+                    <NavLink exact={true} className="nav__link" to="/">
                         Home
                     </NavLink>
                 </li>

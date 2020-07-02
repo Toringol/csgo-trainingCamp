@@ -2,8 +2,8 @@ import React from 'react'
 
 export const Footer = () => (
     <footer className="footer">
-        All rights reserved
+        <span>All rights reserved</span>
         <br />
-        Produced by Toringol and Shev
+        <span>Produced by Toringol and Shev</span>
     </footer>
 )

@@ -22,8 +22,8 @@ export const Navbar = () => (
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink className="nav__link" to="/register">
-                        Register / Log In
+                    <NavLink className="nav__link" to="/signup">
+                        Sign Up / Sign In
                     </NavLink>
                 </li>
             </ul>

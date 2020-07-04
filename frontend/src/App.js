@@ -20,8 +20,8 @@ function App() {
               <Route path={'/blog'} component={Blog}/>
               <Route path={'/training'} component={Training}/>
               <Route path={'/about'} component={About}/>
-              <Route path={'/auth'} component={Auth}/>
-              <Route path={'/register'} component={Registration}/>
+              <Route path={'/signin'} component={Auth}/>
+              <Route path={'/signup'} component={Registration}/>
             </Switch>
           </div>
           <Footer />

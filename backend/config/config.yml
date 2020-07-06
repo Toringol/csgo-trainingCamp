@@ -1,0 +1,10 @@
+listenAddr: 127.0.0.1:8080
+
+database: toringol:1234@tcp(localhost:3306)/csgo_trainingcamp?parseTime=true
+redisDB: redis://toringol:@localhost:6379/0
+
+sessionKeylen: 10
+
+storagePath: https://csgotrainingcampstorage.s3.eu-north-1.amazonaws.com/
+accessKeyID: AKIAUEU5ZHWTVOJ64PYE
+secretAccessKey: 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

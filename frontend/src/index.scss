@@ -1,15 +1,129 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
   margin: 0;
+  padding: 0;
+}
+
+html,
+body {
   font-family: 'Montserrat', sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1rem;
-  color: #F2F3F4;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.15em;
   background: linear-gradient(90deg, #414345 0%, #232526 100%);
 }
 
-code {
-  font-family: 'Montserrat', sans-serif;
-  font-style: normal;
-  font-weight: normal;
+.app {
+  min-height: 100vh;
+  color: #F2F3F4;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.footer {
+  text-align: center;
+  padding-bottom: 20px;
+  margin-top: 2%;
+}
+
+li, .nav__link {
+  position: relative;
+  color: #F2F3F4;
+
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.header-home {
+  padding: 0;
+  padding-top: 20px;
+}
+
+.logo {
+  height: 64px;
+  width: 64px;
+}
+
+.nav__links {
+  list-style: none;
+}
+
+.is-active {
+  color: #FC6600;
+}
+
+.nav__links li {
+  display: inline-block;
+  position: relative;
+  padding: 0px 20px;
+}
+
+.header .nav__links li .nav__link::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #F2F3F4;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.header .nav__links li .nav__link:hover::before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.header-home .nav__links li {
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  padding-right: 40px;
+}
+
+.header-home .nav__links li .nav__link:hover {
+  color: #FC6600;
+}
+
+.block {
+  background: rgba(84, 84, 84, 0.2);
+  border: 2px solid #F2F3F4;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  padding: 20px 2%;
+}
+
+
+.link {
+  color: #F2F3F4;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  list-style: none;
+}
+
+.blockForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
 }

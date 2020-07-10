@@ -5,7 +5,12 @@
     {
       "src": "logo.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "64x64"
+    },
+    {
+      "src": "cs-logo.png",
+      "type": "image/png",
+      "sizes": "24x24"
     }
   ],
   "start_url": ".",

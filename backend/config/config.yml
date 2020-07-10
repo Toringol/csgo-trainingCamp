@@ -6,5 +6,5 @@ redisDB: redis://toringol:@localhost:6379/0
 sessionKeylen: 10
 
 storagePath: https://csgotrainingcampstorage.s3.eu-north-1.amazonaws.com/
-accessKeyID: AKIAUEU5ZHWTVOJ64PYE
-secretAccessKey: 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
+accessKeyID: AKIAUEU5ZHWTWGYTCUF6
+secretAccessKey: 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

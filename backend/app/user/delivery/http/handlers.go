@@ -32,7 +32,24 @@ func NewUserHandler(e *echo.Echo, us user.Usecase) {
 
 // handleHomePage - home page with updates and blog
 func (h *userHandlers) handleHomePage(ctx echo.Context) error {
-	return ctx.JSON(http.StatusOK, "")
+	session, err := cookies.СheckSession(ctx)
+	if err != nil || session == nil {
+		userTmp := model.User{
+			Username: "Toringol",
+			Avatar:   viper.GetString("storagePath") + "avatars/defaultAvatar.png",
+		}
+		return echo.NewHTTPError(http.StatusOK, userTmp)
+	}
+
+	userData, err := h.usecase.SelectUserByUsername(session.Username)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
+	}
+
+	userData.ID = 0
+	userData.Password = ""
+
+	return ctx.JSON(http.StatusOK, userData)
 }
 
 // handleLogout - delete session

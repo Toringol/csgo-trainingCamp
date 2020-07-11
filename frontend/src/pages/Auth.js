@@ -4,7 +4,6 @@ import { Block } from '../components/Block'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import Button from '@material-ui/core/Button';
 import {NavLink} from 'react-router-dom'
@@ -66,64 +65,65 @@ export const Auth = () => {
                 <div className="blockForm">
                     <p>LOG IN TO ACCOUNT</p>
                     
-                    <div className={classes.margin}>
-                        <Grid container spacing={1} alignItems="flex-end">
-                            <Grid item>
-                                <AccountCircle />
+                    <form>
+                        <div className={classes.margin}>
+                            <Grid container spacing={1} alignItems="flex-end">
+                                <Grid item>
+                                    <AccountCircle />
+                                </Grid>
+                                <Grid item>
+                                    <TextFieldCustom
+                                        autoComplete="off"
+                                        autoCorrect="off"
+                                        style={{ margin: 10, marginTop: 16, }}
+                                        id="input-with-icon-grid" 
+                                        label="Username"
+                                        className={classes.textField}
+                                        InputLabelProps={{
+                                            className: classes.textFieldLabel
+                                        }}
+                                        InputProps={{
+                                            className: classes.textField
+                                        }}
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <TextFieldCustom
-                                    autoComplete="off"
-                                    autoCorrect="off"
-                                    style={{ margin: 10, marginTop: 16, }}
-                                    id="input-with-icon-grid" 
-                                    label="Username"
-                                    className={classes.textField}
-                                    InputLabelProps={{
-                                        className: classes.textFieldLabel
-                                    }}
-                                    InputProps={{
-                                        className: classes.textField
-                                    }}
-                                />
-                            </Grid>
-                        </Grid>
-                    </div>
+                        </div>
 
-                    <div className={classes.margin}>
-                        <Grid container spacing={1} alignItems="flex-end">
-                            <Grid item>
-                                <LockOpenIcon />
+                        <div className={classes.margin}>
+                            <Grid container spacing={1} alignItems="flex-end">
+                                <Grid item>
+                                    <LockOpenIcon />
+                                </Grid>
+                                <Grid item>
+                                    <TextFieldCustom
+                                        autoComplete="off"
+                                        autoCorrect="off"
+                                        style={{ margin: 10 }}
+                                        id="input-with-icon-grid" 
+                                        label="Password"
+                                        type="password"
+                                        className={classes.textField}
+                                        InputLabelProps={{
+                                            className: classes.textFieldLabel
+                                        }}
+                                        InputProps={{
+                                            className: classes.textField
+                                        }}
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <TextFieldCustom
-                                    autoComplete="off"
-                                    autoCorrect="off"
-                                    style={{ margin: 10 }}
-                                    id="input-with-icon-grid" 
-                                    label="Password"
-                                    type="password"
-                                    className={classes.textField}
-                                    InputLabelProps={{
-                                        className: classes.textFieldLabel
-                                    }}
-                                    InputProps={{
-                                        className: classes.textField
-                                    }}
-                                />
-                            </Grid>
-                        </Grid>
-                    </div>
+                        </div>
 
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        className={classes.submit}
-                    >
-                        Sign In
-                    </Button>
-
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            className={classes.submit}
+                        >
+                            Sign In
+                        </Button>
+                    </form>
                     
                     <NavLink style={{ margin: 10 }} className="link" to="/signup">
                         Don`t have an account? Sign Up

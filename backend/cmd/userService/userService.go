@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 
 	"github.com/Toringol/csgo-trainingCamp/backend/app/auth/cookies"
 	"github.com/Toringol/csgo-trainingCamp/backend/app/auth/sessionManager"
@@ -35,6 +36,12 @@ func main() {
 
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "${time_rfc3339} [${method}] ${remote_ip}, ${uri} ${status} 'error':'${error}'\n",
+	}))
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{viper.GetString("frontendAddr")},
+		AllowMethods:     []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+		AllowCredentials: true,
 	}))
 
 	userhttp.NewUserHandler(e, usecase.NewUserUsecase(repository.NewUserMemoryRepository()))

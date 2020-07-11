@@ -130,7 +130,6 @@ li, .nav__link {
 }
 
 .TrainingCategories {
-  //background-image: url('/src/images/PracticeServers.png');
   background-position: center;
   width: 430px;
   height: 640px;
@@ -140,7 +139,7 @@ li, .nav__link {
   border-radius: 30px;
   margin-left: 50px;
   margin-right: 50px;
-  opacity: 50%;
+  opacity: 60%;
   stroke: solid #F2F3F4;
   filter: drop-shadow(15px 0px 4px rgba(0, 0, 0, 0.25));
 }
@@ -148,4 +147,20 @@ li, .nav__link {
 .TrainingCategories:hover {
   opacity: 100%;
   border: 2px solid #1E90FF;
+}
+
+.TCtext {
+  position: relative;
+  text-align: center;
+  top: 250px;
+  font-family: Montserrat;
+  font-size: 38px;
+  color: #F2F3F4;
+  line-height: 55px; 
+  text-decoration: none;
+}
+
+.categories_nav__link {
+  font-family: Montserrat;
+  text-decoration: none;
 }

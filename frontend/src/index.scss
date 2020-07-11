@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
+
 * {
   margin: 0;
   padding: 0;
@@ -126,4 +127,25 @@ li, .nav__link {
   flex-direction: column;
   align-items: center;
   justify-items: center;
+}
+
+.TrainingCategories {
+  //background-image: url('/src/images/PracticeServers.png');
+  background-position: center;
+  width: 430px;
+  height: 640px;
+  border: 2px solid #F2F3F4;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  margin-left: 50px;
+  margin-right: 50px;
+  opacity: 50%;
+  stroke: solid #F2F3F4;
+  filter: drop-shadow(15px 0px 4px rgba(0, 0, 0, 0.25));
+}
+
+.TrainingCategories:hover {
+  opacity: 100%;
+  border: 2px solid #1E90FF;
 }

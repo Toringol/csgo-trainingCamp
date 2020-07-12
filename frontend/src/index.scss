@@ -33,8 +33,9 @@ header {
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-baseline;
   height: 100%;
+  width: 100%;
 }
 
 .footer {
@@ -129,7 +130,7 @@ li, .nav__link {
   justify-items: center;
 }
 
-.TrainingCategories {
+.Link_image {
   background-position: center;
   width: 430px;
   height: 640px;
@@ -142,9 +143,10 @@ li, .nav__link {
   opacity: 60%;
   stroke: solid #F2F3F4;
   filter: drop-shadow(15px 0px 4px rgba(0, 0, 0, 0.25));
+  text-decoration: none;
 }
 
-.TrainingCategories:hover {
+.Link_image:hover {
   opacity: 100%;
   border: 2px solid #1E90FF;
 }
@@ -152,15 +154,9 @@ li, .nav__link {
 .TCtext {
   position: relative;
   text-align: center;
-  top: 250px;
   font-family: Montserrat;
   font-size: 38px;
   color: #F2F3F4;
-  line-height: 55px; 
-  text-decoration: none;
+  line-height: 35px; 
 }
 
-.categories_nav__link {
-  font-family: Montserrat;
-  text-decoration: none;
-}

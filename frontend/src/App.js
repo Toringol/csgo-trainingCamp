@@ -11,6 +11,7 @@ import { Blog } from './pages/Blog';
 import { PracticeServers } from './pages/PracticeServers';
 import { Theory } from './pages/Theory';
 import { TacticEditor } from './pages/TacticEditor';
+import { Statistics } from './pages/Statistics';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path={'/servers'} component={PracticeServers}/>
               <Route path={'/theory'} component={Theory}/>
               <Route path={'/tacticeditor'} component={TacticEditor}/>
+              <Route path={'/statistics'} component={Statistics}/>
             </Switch>
           </div>
           <Footer />

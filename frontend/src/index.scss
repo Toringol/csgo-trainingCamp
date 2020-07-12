@@ -33,7 +33,7 @@ header {
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-baseline;
+  align-items: center;
   height: 100%;
   width: 100%;
 }
@@ -160,3 +160,6 @@ li, .nav__link {
   line-height: 35px; 
 }
 
+.test{
+  font-family: Montserrat;
+}

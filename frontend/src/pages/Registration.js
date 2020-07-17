@@ -1,4 +1,5 @@
-import React, {Fragment} from 'react'
+import React, { Fragment, useState, useReducer } from 'react';
+import axios from 'axios';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Block } from '../components/Block'
 import TextField from '@material-ui/core/TextField';
@@ -57,8 +58,38 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const Registration = () => {
+
+export const Registration = (props) => {
     const classes = useStyles();
+
+    const [username, setUsername] = useState()
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+
+    const handleChangeUsername = e => {
+        setUsername(e.target.value)
+    }
+
+    const handleChangeEmail = e => {
+        setEmail(e.target.value)
+    }
+
+    const handleChangePassword = e => {
+        setPassword(e.target.value)
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault()
+        axios.post(`http://localhost:8080/signup/`, {
+            username: username,
+            email: email,
+            password: password,
+        }, {withCredentials: true})
+            .then(response => {
+                props.store.dispatch
+                props.history.push(`/`);
+            });
+    }
 
     return (
         <Fragment>
@@ -66,7 +97,7 @@ export const Registration = () => {
                 <div className="blockForm">
                     <p>JOIN THE TRAINING CAMP</p>
                     
-                    <form>
+                    <form onSubmit={ handleSubmit }>
                         <div className={classes.margin}>
                             <Grid container spacing={1} alignItems="flex-end">
                                 <Grid item>
@@ -79,7 +110,8 @@ export const Registration = () => {
                                         style={{ margin: 10, marginTop: 16, }}
                                         id="input-with-icon-grid" 
                                         label="Username"
-                                        className={classes.textField}
+                                        className={ classes.textField }
+                                        onChange={ handleChangeUsername }
                                         InputLabelProps={{
                                             className: classes.textFieldLabel
                                         }}
@@ -103,7 +135,8 @@ export const Registration = () => {
                                         style={{ margin: 10 }}
                                         id="input-with-icon-grid" 
                                         label="Email"
-                                        className={classes.textField}
+                                        className={ classes.textField }
+                                        onChange={ handleChangeEmail }
                                         InputLabelProps={{
                                             className: classes.textFieldLabel
                                         }}
@@ -128,7 +161,8 @@ export const Registration = () => {
                                         id="input-with-icon-grid" 
                                         label="Password"
                                         type="password"
-                                        className={classes.textField}
+                                        className={ classes.textField }
+                                        onChange={ handleChangePassword }
                                         InputLabelProps={{
                                             className: classes.textFieldLabel
                                         }}
@@ -153,7 +187,7 @@ export const Registration = () => {
                                         id="input-with-icon-grid" 
                                         label="Confirm Password"
                                         type="password"
-                                        className={classes.textField}
+                                        className={ classes.textField }
                                         InputLabelProps={{
                                             className: classes.textFieldLabel
                                         }}
@@ -169,7 +203,7 @@ export const Registration = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            className={classes.submit}
+                            className={ classes.submit }
                         >
                             Sign Up
                         </Button>

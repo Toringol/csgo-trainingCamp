@@ -3,6 +3,7 @@ package http
 import (
 	"database/sql"
 	"encoding/base64"
+	"log"
 	"net/http"
 
 	"github.com/Toringol/csgo-trainingCamp/backend/app/auth/cookies"
@@ -34,15 +35,12 @@ func NewUserHandler(e *echo.Echo, us user.Usecase) {
 func (h *userHandlers) handleHomePage(ctx echo.Context) error {
 	session, err := cookies.СheckSession(ctx)
 	if err != nil || session == nil {
-		userTmp := model.User{
-			Username: "Toringol",
-			Avatar:   viper.GetString("storagePath") + "avatars/defaultAvatar.png",
-		}
-		return echo.NewHTTPError(http.StatusOK, userTmp)
+		return ctx.JSON(http.StatusOK, nil)
 	}
 
 	userData, err := h.usecase.SelectUserByUsername(session.Username)
 	if err != nil {
+		log.Println(err)
 		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
 	}
 

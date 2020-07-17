@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Fragment} from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Block } from '../components/Block'
 import TextField from '@material-ui/core/TextField';

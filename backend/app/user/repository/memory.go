@@ -38,7 +38,7 @@ func (repo *Repository) SelectUserByID(id int64) (*model.User, error) {
 	record := &model.User{}
 	err := repo.DB.
 		QueryRow("SELECT id, username, email, password, avatar FROM users WHERE id = ?", id).
-		Scan(&record.ID, &record.Username, &record.Password, &record.Avatar)
+		Scan(&record.ID, &record.Username, &record.Email, &record.Password, &record.Avatar)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (repo *Repository) SelectUserByUsername(username string) (*model.User, erro
 	record := &model.User{}
 	err := repo.DB.
 		QueryRow("SELECT id, username, email, password, avatar FROM users WHERE username = ?", username).
-		Scan(&record.ID, &record.Username, &record.Password, &record.Avatar)
+		Scan(&record.ID, &record.Username, &record.Email, &record.Password, &record.Avatar)
 	if err != nil {
 		return nil, err
 	}

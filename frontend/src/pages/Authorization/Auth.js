@@ -1,11 +1,10 @@
-import React, { Fragment, useState, useReducer } from 'react';
+import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Block } from '../components/Block'
+import { Block } from '../../components/Block'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import Button from '@material-ui/core/Button';
 import {NavLink} from 'react-router-dom'
@@ -58,36 +57,32 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-export const Registration = (props) => {
+const Auth = (props) => {
     const classes = useStyles();
 
-    const [username, setUsername] = useState()
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    
     const handleChangeUsername = e => {
-        setUsername(e.target.value)
-    }
-
-    const handleChangeEmail = e => {
-        setEmail(e.target.value)
+        setUsername(e.target.value);
     }
 
     const handleChangePassword = e => {
-        setPassword(e.target.value)
+        setPassword(e.target.value);
     }
-
+    
     const handleSubmit = event => {
-        event.preventDefault()
-        axios.post(`http://localhost:8080/signup/`, {
+        event.preventDefault();
+        axios.post(`http://localhost:8080/signin/`, {
             username: username,
-            email: email,
             password: password,
-        }, {withCredentials: true})
+        }, {withCredentials: true},)
             .then(response => {
-                props.store.dispatch
-                props.history.push(`/`);
+                if (response.status === 200 && response.data !== null) {
+                    let { avatar, username } = response.data;
+                    props.setAuthUserData(avatar, username);
+                    props.history.push(`/`);
+                }
             });
     }
 
@@ -95,7 +90,7 @@ export const Registration = (props) => {
         <Fragment>
             <Block>
                 <div className="blockForm">
-                    <p>JOIN THE TRAINING CAMP</p>
+                    <p>LOG IN TO ACCOUNT</p>
                     
                     <form onSubmit={ handleSubmit }>
                         <div className={classes.margin}>
@@ -112,31 +107,6 @@ export const Registration = (props) => {
                                         label="Username"
                                         className={ classes.textField }
                                         onChange={ handleChangeUsername }
-                                        InputLabelProps={{
-                                            className: classes.textFieldLabel
-                                        }}
-                                        InputProps={{
-                                            className: classes.textField
-                                        }}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </div>
-
-                        <div className={classes.margin}>
-                            <Grid container spacing={1} alignItems="flex-end">
-                                <Grid item>
-                                    <MailOutlineIcon />
-                                </Grid>
-                                <Grid item>
-                                    <TextFieldCustom
-                                        autoComplete="off"
-                                        autoCorrect="off"
-                                        style={{ margin: 10 }}
-                                        id="input-with-icon-grid" 
-                                        label="Email"
-                                        className={ classes.textField }
-                                        onChange={ handleChangeEmail }
                                         InputLabelProps={{
                                             className: classes.textFieldLabel
                                         }}
@@ -174,46 +144,23 @@ export const Registration = (props) => {
                             </Grid>
                         </div>
 
-                        <div className={classes.margin}>
-                            <Grid container spacing={1} alignItems="flex-end">
-                                <Grid item>
-                                    <LockOpenIcon />
-                                </Grid>
-                                <Grid item>
-                                    <TextFieldCustom
-                                        autoComplete="off"
-                                        autoCorrect="off"
-                                        style={{ margin: 10 }}
-                                        id="input-with-icon-grid" 
-                                        label="Confirm Password"
-                                        type="password"
-                                        className={ classes.textField }
-                                        InputLabelProps={{
-                                            className: classes.textFieldLabel
-                                        }}
-                                        InputProps={{
-                                            className: classes.textField
-                                        }}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </div>
-
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            className={ classes.submit }
+                            className={classes.submit}
                         >
-                            Sign Up
+                            Sign In
                         </Button>
                     </form>
                     
-                    <NavLink style={{ margin: 10 }} className="link" to="/signin">
-                        Already have an account? Sign in
+                    <NavLink style={{ margin: 10 }} className="link" to="/signup">
+                        Don`t have an account? Sign Up
                     </NavLink>
                 </div>
             </Block>
         </Fragment>
     )
 }
+
+export default Auth;

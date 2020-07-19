@@ -1,5 +1,6 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { CustomMenu } from '../CustomMenu';
 
 const Navbar = (props) => (
     <header className="header">
@@ -24,9 +25,11 @@ const Navbar = (props) => (
                 { 
                 props.isAuth ? 
                     <li>
-                        <img className="avatar" src={props.avatar} alt="avatar" />
-                        {props.username}
-                        <img className="arrow" src={process.env.PUBLIC_URL + '/arrow.png'} alt="arrow" />
+                        <div>
+                            <img className="avatar" src={props.avatar} alt="avatar" />
+                            {props.username}
+                            <CustomMenu />
+                        </div>
                     </li>
                 :
                     <li>

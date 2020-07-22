@@ -7,10 +7,13 @@ import Authorization from './pages/Authorization/AuthContainer';
 import Registration from './pages/Registation/RegistrationContainer';
 import NavbarContainer from './components/Navbar/NavbarContainer';
 import { Footer } from './components/Footer';
+import Logout from './components/Logout';
 import { Blog } from './pages/Blog';
 import { Provider } from 'react-redux';
 import ProtectedRoute from './components/ProtectedRoute';
 import store from './redux/reduxStore';
+import { Statistics } from './pages/Statistics';
+import { Settings } from './pages/Settings';
 
 function App() {
   return (
@@ -24,8 +27,11 @@ function App() {
               <Route path={'/blog'} component={ Blog }/>
               <Route path={'/training'} component={ Training }/>
               <Route path={'/about'} component={ About }/>
+              <Route path={'/statistics'} component={ Statistics }/>
+              <Route path={'/settings'} component={ Settings }/>
               <Route path={'/signin'} component={ Authorization }/>
               <Route path={'/signup'} component={ Registration }/>
+              <Route path={'/logout'} component={ Logout }/>
             </Switch>
           </div>
           <Footer />

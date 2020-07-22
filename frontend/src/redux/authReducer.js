@@ -1,4 +1,5 @@
 const SET_USER_DATA = 'SET_USER_DATA';
+const RESET_USER_DATA = 'RESET_USER_DATA';
 
 let initialState = {
     avatar: null,
@@ -14,11 +15,17 @@ const authReducer = (state = initialState, action) => {
                 ...action.data,
                 isAuth: true
             }
+        case RESET_USER_DATA:
+            return {
+                ...state,
+                ...initialState
+            }
         default:
             return state;
     }
 }
 
 
-export const setAuthUserData = (avatar, username) => ({type: SET_USER_DATA, data: {avatar, username}}) 
+export const setAuthUserData = (avatar, username) => ({type: SET_USER_DATA, data: {avatar, username}})
+export const resetAuthUserData = () => ({type: RESET_USER_DATA})
 export default authReducer;

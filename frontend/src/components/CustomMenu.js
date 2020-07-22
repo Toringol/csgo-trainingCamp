@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import IconButton from '@material-ui/core/IconButton';
+
 
 const StyledMenu = withStyles({
   paper: {
@@ -43,36 +46,38 @@ const StyledMenuItem = withStyles((theme) => ({
       letterSpacing: '0.1em',
       color: '#F2F3F4',
     }
-    // '&:focus': {
-    //   backgroundColor: '#545454',
-    //   '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-    //     color: theme.palette.common.white,
-    //   },
-    // },
   },
 }))(MenuItem);
 
 export const CustomMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const handleClick = (event) => {
+    setButtonClicked(true);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
+    setButtonClicked(false);
     setAnchorEl(null);
   };
 
   return (
-    <li>
-      <Button
+    <li className="menu">
+      <IconButton
         aria-controls="customized-menu"
         aria-haspopup="true"
-        style={{ backgroundColor: 'inherit', color: '#F2F3F4' }}
+        style={{ backgroundColor: 'inherit', color: '#F2F3F4', padding: '0', }}
         onClick={handleClick}
       >
-        <KeyboardArrowDownIcon fontSize="large" />
-      </Button>
+        {
+          buttonClicked ?
+          <KeyboardArrowUpIcon fontSize="large" />
+          :
+          <KeyboardArrowDownIcon fontSize="large" />
+        }
+      </IconButton>
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}
@@ -80,19 +85,19 @@ export const CustomMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
+        <StyledMenuItem component={ Link } to='/statistics'>
           <ListItemIcon>
             <EqualizerIcon fontSize="medium" />
           </ListItemIcon>
           <ListItemText secondary="Statistics" />
         </StyledMenuItem>
-        <StyledMenuItem>
+        <StyledMenuItem component={ Link } to='/settings'>
           <ListItemIcon>
             <SettingsIcon fontSize="medium" />
           </ListItemIcon>
           <ListItemText secondary="Settings" />
         </StyledMenuItem>
-        <StyledMenuItem>
+        <StyledMenuItem component={ Link } to='/logout'>
           <ListItemIcon>
             <ExitToAppIcon fontSize="medium" />
           </ListItemIcon>

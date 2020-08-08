@@ -3,7 +3,6 @@ package http
 import (
 	"database/sql"
 	"encoding/base64"
-	"log"
 	"net/http"
 
 	"github.com/Toringol/csgo-trainingCamp/backend/app/auth/cookies"
@@ -33,6 +32,13 @@ func NewUserHandler(e *echo.Echo, us user.Usecase) {
 
 // handleHomePage - home page with updates and blog
 func (h *userHandlers) handleHomePage(ctx echo.Context) error {
+	// updates, err := tools.UpdatesCrowler()
+	// if err != nil {
+	// 	return echo.NewHTTPError(http.StatusInternalServerError, "Updates Crowler Error")
+	// }
+
+	// ctx.Response().Write([]byte(updates))
+
 	session, err := cookies.СheckSession(ctx)
 	if err != nil || session == nil {
 		return ctx.JSON(http.StatusOK, nil)
@@ -40,7 +46,6 @@ func (h *userHandlers) handleHomePage(ctx echo.Context) error {
 
 	userData, err := h.usecase.SelectUserByUsername(session.Username)
 	if err != nil {
-		log.Println(err)
 		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
 	}
 

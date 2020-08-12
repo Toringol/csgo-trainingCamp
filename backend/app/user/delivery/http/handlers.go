@@ -31,6 +31,12 @@ func NewUserHandler(e *echo.Echo, us user.Usecase) {
 }
 
 // handleHomePage - home page with updates and blog
+// handleHomePage godoc
+// @Summary Retrieves user based on given ID
+// @Produce json
+// @Param id path integer true "User ID"
+// @Success 200 {object} models.User
+// @Router / [get]
 func (h *userHandlers) handleHomePage(ctx echo.Context) error {
 	// updates, err := tools.UpdatesCrowler()
 	// if err != nil {

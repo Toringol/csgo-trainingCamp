@@ -24,7 +24,35 @@ var doc = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-    "paths": {}
+	"paths": {},
+	"definitions": {
+        "user": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "type": "integer",
+                    "format": "int64",
+                    "readOnly": "true"
+                },
+                "Username": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "Email": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "Password": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "Avatar": {
+                    "type": "string",
+                    "format": "string"
+                }
+            }    
+        }
+    },
 }`
 
 type swaggerInfo struct {

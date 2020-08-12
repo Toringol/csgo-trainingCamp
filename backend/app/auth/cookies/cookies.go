@@ -8,7 +8,7 @@ import (
 	"github.com/Toringol/csgo-trainingCamp/backend/app/auth/sessionManager"
 	"github.com/Toringol/csgo-trainingCamp/backend/app/model"
 	"github.com/gorilla/securecookie"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 var (

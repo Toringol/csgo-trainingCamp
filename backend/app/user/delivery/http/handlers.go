@@ -9,7 +9,7 @@ import (
 	"github.com/Toringol/csgo-trainingCamp/backend/app/model"
 	"github.com/Toringol/csgo-trainingCamp/backend/app/user"
 	"github.com/Toringol/csgo-trainingCamp/backend/tools"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/spf13/viper"
 )
 

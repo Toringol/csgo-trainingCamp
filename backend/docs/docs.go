@@ -31,24 +31,19 @@ var doc = `{
             "properties": {
                 "ID": {
                     "type": "integer",
-                    "format": "int64",
-                    "readOnly": "true"
+                    "format": "int64"
                 },
                 "Username": {
-                    "type": "string",
-                    "format": "string"
+                    "type": "string"
                 },
                 "Email": {
-                    "type": "string",
-                    "format": "string"
+                    "type": "string"
                 },
                 "Password": {
-                    "type": "string",
-                    "format": "string"
+                    "type": "string"
                 },
                 "Avatar": {
-                    "type": "string",
-                    "format": "string"
+                    "type": "string"
                 }
             }    
         }

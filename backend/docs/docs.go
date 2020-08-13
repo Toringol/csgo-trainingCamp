@@ -24,15 +24,19 @@ var doc = `{
     },
     "host": "{{.Host}}",
 	"basePath": "{{.BasePath}}",
-	"tags": {
-		"name": "User Service",
-		"description": "All operations with userData"
-	},
+	"tags": [
+		{
+			"name": "User Service",
+			"description": "All operations with userData"
+		}
+	],
 	"paths": {
 		"/": {
 			"get": {
 				"description": "Home page updates and blog posts, checks session",
-				"tags": "User Service",
+				"tags": [
+					"User Service",
+				],
 				"consumes": [
                     "application/json"
                 ],
@@ -101,7 +105,9 @@ var doc = `{
 		"/signup/": {
 			"post": {
 				"description": "Registration",
-				"tags": "User Service",
+				"tags": [
+					"User Service",
+				],
 				"consumes": [
                     "application/json"
                 ],
@@ -203,7 +209,9 @@ var doc = `{
 		"/signin/": {
 			"post": {
 				"description": "LogIn",
-				"tags": "User Service",
+				"tags": [
+					"User Service",
+				],
 				"consumes": [
                     "application/json"
                 ],
@@ -301,7 +309,9 @@ var doc = `{
 		"/logout/": {
 			"get": {
 				"description": "Delete cookie from Redis Store and decay cookie",
-				"tags": "User Service",
+				"tags": [
+					"User Service",
+				],
 				"consumes": [
                     "application/json"
                 ],

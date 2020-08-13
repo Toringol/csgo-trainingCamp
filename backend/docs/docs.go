@@ -27,7 +27,7 @@ var doc = `{
 	"tags": {
 		"name": "User Service",
 		"description": "All operations with userData"
-	}
+	},
 	"paths": {
 		"/": {
 			"get": {

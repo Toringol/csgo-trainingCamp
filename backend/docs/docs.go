@@ -48,14 +48,16 @@ var doc = `{
 						"description": "Valid cookie",
                         "schema": {
 							"type": "object",
-							"Username": {
-								"type": "string"
-							},
-							"Email": {
-								"type": "string"
-							},
-							"Avatar": {
-								"type": "string"
+							"properties": {
+								"Username": {
+									"type": "string"
+								},
+								"Email": {
+									"type": "string"
+								},
+								"Avatar": {
+									"type": "string"
+								}
 							}
 						}
 					},

@@ -23,11 +23,16 @@ var doc = `{
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
-    "basePath": "{{.BasePath}}",
+	"basePath": "{{.BasePath}}",
+	"tags": {
+		"name": "User Service",
+		"description": "All operations with userData"
+	}
 	"paths": {
 		"/": {
 			"get": {
 				"description": "Home page updates and blog posts, checks session",
+				"tags": "User Service",
 				"consumes": [
                     "application/json"
                 ],
@@ -55,6 +60,10 @@ var doc = `{
 								"Avatar": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"Username": "Toringol",
+								"Avatar": "awsUrl/default"
 							}
 						}
 					},
@@ -66,6 +75,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "nil"
 							}
 						}
 					},
@@ -77,6 +89,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "Internal DB Error"
 							}
 						}
 					}
@@ -86,6 +101,7 @@ var doc = `{
 		"/signup/": {
 			"post": {
 				"description": "Registration",
+				"tags": "User Service",
 				"consumes": [
                     "application/json"
                 ],
@@ -111,6 +127,11 @@ var doc = `{
 								"Password": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"Username": "Toringol",
+								"Email": "toringol@mail.ru",
+								"Password": "123123"
 							}
 						}
 					}
@@ -127,6 +148,10 @@ var doc = `{
 								"Avatar": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"Username": "Toringol",
+								"Avatar": "awsUrl/default"
 							}
 						}
 					},
@@ -138,6 +163,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "Bad Request"
 							}
 						}
 					},
@@ -149,6 +177,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "This username is occupied"
 							}
 						}
 					},
@@ -160,6 +191,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "Internal DB Error"
 							}
 						}
 					}
@@ -169,6 +203,7 @@ var doc = `{
 		"/signin/": {
 			"post": {
 				"description": "LogIn",
+				"tags": "User Service",
 				"consumes": [
                     "application/json"
                 ],
@@ -192,6 +227,10 @@ var doc = `{
 									"type": "string"
 								}
 							}
+						},
+						"example": {
+							"Username": "Toringol",
+							"Password": "111111"
 						}
 					}
 				],
@@ -207,6 +246,10 @@ var doc = `{
 								"Avatar": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"Username": "Toringol",
+								"Avatar": "awsUrl/default"
 							}
 						}
 					},
@@ -218,6 +261,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "Bad Request"
 							}
 						}
 					},
@@ -229,6 +275,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "Incorrect username or password"
 							}
 						}
 					},
@@ -240,6 +289,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "Internal DB Error"
 							}
 						}
 					}
@@ -249,6 +301,7 @@ var doc = `{
 		"/logout/": {
 			"get": {
 				"description": "Delete cookie from Redis Store and decay cookie",
+				"tags": "User Service",
 				"consumes": [
                     "application/json"
                 ],
@@ -273,6 +326,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "nil"
 							}
 						}
 					},
@@ -284,6 +340,9 @@ var doc = `{
 								"message": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"message": "Internal DB Error"
 							}
 						}
 					}
@@ -324,7 +383,7 @@ var doc = `{
             }    
 		},
 		"Session": {
-			"description": "Data in Redis Storage sessID - useraname, useragent",
+			"description": "Data in Redis Storage (sessID - useraname, useragent)",
 			"type": "object",
             "properties": {
                 "Username": {

@@ -128,7 +128,8 @@ var doc = `{
 							"type": "object",
 							"properties": {
 								"message": {
-									"type": "This username is occupied"
+									"type": "string"
+									"name": "This username is occupied"
 								}
 							}
 						}
@@ -139,7 +140,8 @@ var doc = `{
 							"type": "object",
 							"properties": {
 								"message": {
-									"type": "Internal DB Error"
+									"type": "string"
+									"name": "Internal DB Error"
 								}
 							}
 						}

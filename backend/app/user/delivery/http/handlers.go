@@ -50,6 +50,7 @@ func (h *userHandlers) handleHomePage(ctx echo.Context) error {
 	}
 
 	userData.ID = 0
+	userData.Email = ""
 	userData.Password = ""
 
 	return ctx.JSON(http.StatusOK, userData)

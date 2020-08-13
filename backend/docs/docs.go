@@ -52,7 +52,68 @@ var doc = `{
 								"Username": {
 									"type": "string"
 								},
+								"Avatar": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"2XX": {
+						"description": "Without or invalid cookie",
+                        "schema": {
+							"type": "string",
+							"description": "nil"
+						}
+					},
+					"5XX": {
+						"description": "DataBase error",
+						"schema": {
+							"type": "string",
+							"description": "Internal DB Error"
+						}
+					}
+				}
+			}
+		},
+		"/signup/": {
+			"post": {
+				"description": "Registration",
+				"consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+				],
+				"summary": "Create new user",
+				"operationId": "handleSignUp",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "User Credentials",
+						"description": "UserData",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"Username": {
+									"type": "string"
+								},
 								"Email": {
+									"type": "string"
+								},
+								"Password": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK - Account Created",
+                        "schema": {
+							"type": "object",
+							"properties": {
+								"Username": {
 									"type": "string"
 								},
 								"Avatar": {
@@ -61,14 +122,14 @@ var doc = `{
 							}
 						}
 					},
-					"20X": {
-						"description": "Without or invalid cookie",
+					"409": {
+						"description": "Username is already occupied",
                         "schema": {
 							"type": "string",
-							"description": "nil"
+							"description": "This username is occupied"
 						}
 					},
-					"500": {
+					"5XX": {
 						"description": "DataBase error",
 						"schema": {
 							"type": "string",
@@ -81,6 +142,7 @@ var doc = `{
 	},
 	"definitions": {
         "User": {
+			"description": "User structure in DataBase",
 			"type": "object",
             "properties": {
                 "ID": {
@@ -102,6 +164,7 @@ var doc = `{
             }    
 		},
 		"SessionID": {
+			"description": "SessionID in redis Storage",
 			"type": "object",
             "properties": {
                 "ID": {
@@ -110,6 +173,7 @@ var doc = `{
             }    
 		},
 		"Session": {
+			"description": "Data in Redis Storage sessID - useraname, useragent",
 			"type": "object",
             "properties": {
                 "Username": {

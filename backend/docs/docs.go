@@ -61,15 +61,23 @@ var doc = `{
 					"2XX": {
 						"description": "Without or invalid cookie",
                         "schema": {
-							"type": "string",
-							"description": "nil"
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							}
 						}
 					},
 					"5XX": {
-						"description": "DataBase error",
+						"description": "Server error",
 						"schema": {
-							"type": "string",
-							"description": "Internal DB Error"
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							}
 						}
 					}
 				}
@@ -122,6 +130,17 @@ var doc = `{
 							}
 						}
 					},
+					"400": {
+						"description": "Bad or empty credentials",
+                        "schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							}
+						}
+					},
 					"409": {
 						"description": "Username is already occupied",
                         "schema": {
@@ -129,19 +148,141 @@ var doc = `{
 							"properties": {
 								"message": {
 									"type": "string"
-									"name": "This username is occupied"
 								}
 							}
 						}
 					},
 					"5XX": {
-						"description": "DataBase error",
+						"description": "Server error",
 						"schema": {
 							"type": "object",
 							"properties": {
 								"message": {
 									"type": "string"
-									"name": "Internal DB Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/signin/": {
+			"post": {
+				"description": "LogIn",
+				"consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+				],
+				"summary": "Check credentials",
+				"operationId": "handleSignIn",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "User Credentials",
+						"description": "UserData",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"Username": {
+									"type": "string"
+								},
+								"Password": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK - Right credentials",
+                        "schema": {
+							"type": "object",
+							"properties": {
+								"Username": {
+									"type": "string"
+								},
+								"Avatar": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad or empty credentials",
+                        "schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Incorrect credentials",
+                        "schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"5XX": {
+						"description": "Server error",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/logout/": {
+			"get": {
+				"description": "Delete cookie from Redis Store and decay cookie",
+				"consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+				],
+				"summary": "Delete cookie",
+				"operationId": "handleLogout",
+				"parameters": [
+					{
+						"in": "cookie",
+						"name": "SessionID",
+						"description": "Encrypted session in cookie header"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+                        "schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"5XX": {
+						"description": "Server error",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
 								}
 							}
 						}

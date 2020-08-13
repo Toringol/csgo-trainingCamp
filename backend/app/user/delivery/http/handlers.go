@@ -63,7 +63,7 @@ func (h *userHandlers) handleLogout(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Cookie del error")
 	}
 
-	return ctx.JSON(http.StatusOK, "")
+	return ctx.JSON(http.StatusOK, nil)
 }
 
 // handleSignUp - create user record in DB if username is not occupied

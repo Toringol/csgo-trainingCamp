@@ -51,7 +51,7 @@ var doc = `{
 							"$ref": "#/definitions/User"
 						}
 					},
-					"200": {
+					"201": {
 						"description": "Unvalid cookie",
                         "schema": {
 							"type": "string"

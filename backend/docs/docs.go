@@ -48,20 +48,29 @@ var doc = `{
 						"description": "Valid cookie",
                         "schema": {
 							"type": "object",
-							"$ref": "#/definitions/User"
+							"Username": {
+								"type": "string"
+							},
+							"Email": {
+								"type": "string"
+							},
+							"Avatar": {
+								"type": "string"
+							}
 						}
 					},
-					"201": {
-						"description": "Unvalid cookie",
+					"20X": {
+						"description": "Without or invalid cookie",
                         "schema": {
-							"type": "string"
+							"type": "string",
+							"description": "nil"
 						}
 					},
 					"500": {
 						"description": "DataBase error",
 						"schema": {
 							"type": "string",
-							"$ref": "Internal DB Error"
+							"description": "Internal DB Error"
 						}
 					}
 				}

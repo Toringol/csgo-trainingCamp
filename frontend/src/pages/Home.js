@@ -1,6 +1,6 @@
-import React, {Fragment} from 'react'
-import { Block } from '../components/Block'
-import { NavbarHome } from '../components/NavbarHome'
+import React, {Fragment} from 'react';
+import { Block } from '../components/Block';
+import { NavbarHome } from '../components/NavbarHome';
 
 export const Home = () => {
     return (

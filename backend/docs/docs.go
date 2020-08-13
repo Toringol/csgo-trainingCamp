@@ -234,11 +234,11 @@ var doc = `{
 								"Password": {
 									"type": "string"
 								}
+							},
+							"example": {
+								"Username": "Toringol",
+								"Password": "111111"
 							}
-						},
-						"example": {
-							"Username": "Toringol",
-							"Password": "111111"
 						}
 					}
 				],

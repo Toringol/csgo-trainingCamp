@@ -125,15 +125,23 @@ var doc = `{
 					"409": {
 						"description": "Username is already occupied",
                         "schema": {
-							"type": "string",
-							"description": "This username is occupied"
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "This username is occupied"
+								}
+							}
 						}
 					},
 					"5XX": {
 						"description": "DataBase error",
 						"schema": {
-							"type": "string",
-							"description": "Internal DB Error"
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "Internal DB Error"
+								}
+							}
 						}
 					}
 				}

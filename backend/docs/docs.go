@@ -24,10 +24,53 @@ var doc = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-	"paths": {},
+	"paths": {
+		"/": {
+			"get": {
+				"description": "Home page updates and blog posts, checks session",
+				"consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+				],
+				"summary": "Get home content and check user session",
+				"operationId": "handleHomePage",
+				"parameters": [
+					{
+						"in": "cookie",
+						"name": "SessionID",
+						"description": "Encrypted session in cookie header"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Valid cookie",
+                        "schema": {
+							"type": "object",
+							"$ref": "#/definitions/User"
+						}
+					},
+					"200": {
+						"description": "Unvalid cookie",
+                        "schema": {
+							"type": "string"
+						}
+					},
+					"500": {
+						"description": "DataBase error",
+						"schema": {
+							"type": "string",
+							"$ref": "Internal DB Error"
+						}
+					}
+				}
+			}
+		}
+	},
 	"definitions": {
-        "user": {
-            "type": "object",
+        "User": {
+			"type": "object",
             "properties": {
                 "ID": {
                     "type": "integer",
@@ -46,7 +89,26 @@ var doc = `{
                     "type": "string"
                 }
             }    
-        }
+		},
+		"SessionID": {
+			"type": "object",
+            "properties": {
+                "ID": {
+                    "type": "string"
+                }
+            }    
+		},
+		"Session": {
+			"type": "object",
+            "properties": {
+                "Username": {
+                    "type": "string"
+                },
+                "Useragent": {
+                    "type": "string"
+                }
+            }    
+		}
     },
 }`
 

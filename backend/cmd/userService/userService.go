@@ -20,10 +20,6 @@ import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
-// @title Swagger CS-GO Backend API
-// @version 0.1
-// @description This is CS-GO Backend Server
-// @description Server provides service for players that want to practise their skills and improve it
 func main() {
 
 	if err := config.Init(); err != nil {

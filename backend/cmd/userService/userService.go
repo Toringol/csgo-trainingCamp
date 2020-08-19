@@ -26,7 +26,7 @@ func main() {
 		log.Fatalf("%s", err.Error())
 	}
 
-	listenAddr := viper.GetString("listenAddr")
+	listenAddr := viper.GetString("userServiceListenAddr")
 
 	redisConn, err := redis.DialURL(viper.GetString("redisDB"))
 	if err != nil {

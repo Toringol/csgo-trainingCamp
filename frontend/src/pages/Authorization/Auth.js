@@ -1,13 +1,14 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Block } from '../../components/Block'
+import { Block } from '../../components/Block';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import Button from '@material-ui/core/Button';
-import {NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom';
+import { BoxLoading } from 'react-loadingg';
 
 const TextFieldCustom = withStyles({
     root: {
@@ -63,6 +64,8 @@ const Auth = (props) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     
+    const [loading, setLoader] = useState(false);
+    
     const handleChangeUsername = e => {
         setUsername(e.target.value);
     }
@@ -72,6 +75,8 @@ const Auth = (props) => {
     }
     
     const handleSubmit = event => {
+        setLoader(true);
+
         event.preventDefault();
         axios.post(`http://localhost:8080/signin/`, {
             username: username,
@@ -84,81 +89,88 @@ const Auth = (props) => {
                     props.history.push(`/`);
                 }
             });
+        
+        setLoader(false);
     }
 
     return (
         <Fragment>
-            <Block>
-                <div className="blockForm">
-                    <p>LOG IN TO ACCOUNT</p>
-                    
-                    <form onSubmit={ handleSubmit }>
-                        <div className={classes.margin}>
-                            <Grid container spacing={1} alignItems="flex-end">
-                                <Grid item>
-                                    <AccountCircle />
+            {
+                (loading) ?
+                < BoxLoading size="large" color="#27CEC5" />
+                :
+                <Block>
+                    <div className="blockForm">
+                        <p>LOG IN TO ACCOUNT</p>
+                        
+                        <form onSubmit={ handleSubmit }>
+                            <div className={classes.margin}>
+                                <Grid container spacing={1} alignItems="flex-end">
+                                    <Grid item>
+                                        <AccountCircle />
+                                    </Grid>
+                                    <Grid item>
+                                        <TextFieldCustom
+                                            autoComplete="off"
+                                            autoCorrect="off"
+                                            style={{ margin: 10, marginTop: 16, }}
+                                            id="input-with-icon-grid" 
+                                            label="Username"
+                                            className={ classes.textField }
+                                            onChange={ handleChangeUsername }
+                                            InputLabelProps={{
+                                                className: classes.textFieldLabel
+                                            }}
+                                            InputProps={{
+                                                className: classes.textField
+                                            }}
+                                        />
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <TextFieldCustom
-                                        autoComplete="off"
-                                        autoCorrect="off"
-                                        style={{ margin: 10, marginTop: 16, }}
-                                        id="input-with-icon-grid" 
-                                        label="Username"
-                                        className={ classes.textField }
-                                        onChange={ handleChangeUsername }
-                                        InputLabelProps={{
-                                            className: classes.textFieldLabel
-                                        }}
-                                        InputProps={{
-                                            className: classes.textField
-                                        }}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </div>
+                            </div>
 
-                        <div className={classes.margin}>
-                            <Grid container spacing={1} alignItems="flex-end">
-                                <Grid item>
-                                    <LockOpenIcon />
+                            <div className={classes.margin}>
+                                <Grid container spacing={1} alignItems="flex-end">
+                                    <Grid item>
+                                        <LockOpenIcon />
+                                    </Grid>
+                                    <Grid item>
+                                        <TextFieldCustom
+                                            autoComplete="off"
+                                            autoCorrect="off"
+                                            style={{ margin: 10 }}
+                                            id="input-with-icon-grid" 
+                                            label="Password"
+                                            type="password"
+                                            className={ classes.textField }
+                                            onChange={ handleChangePassword }
+                                            InputLabelProps={{
+                                                className: classes.textFieldLabel
+                                            }}
+                                            InputProps={{
+                                                className: classes.textField
+                                            }}
+                                        />
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <TextFieldCustom
-                                        autoComplete="off"
-                                        autoCorrect="off"
-                                        style={{ margin: 10 }}
-                                        id="input-with-icon-grid" 
-                                        label="Password"
-                                        type="password"
-                                        className={ classes.textField }
-                                        onChange={ handleChangePassword }
-                                        InputLabelProps={{
-                                            className: classes.textFieldLabel
-                                        }}
-                                        InputProps={{
-                                            className: classes.textField
-                                        }}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </div>
+                            </div>
 
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            className={classes.submit}
-                        >
-                            Sign In
-                        </Button>
-                    </form>
-                    
-                    <NavLink style={{ margin: 10 }} className="link" to="/signup">
-                        Don`t have an account? Sign Up
-                    </NavLink>
-                </div>
-            </Block>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                className={classes.submit}
+                            >
+                                Sign In
+                            </Button>
+                        </form>
+                        
+                        <NavLink style={{ margin: 10 }} className="link" to="/signup">
+                            Don`t have an account? Sign Up
+                        </NavLink>
+                    </div>
+                </Block>
+            }
         </Fragment>
     )
 }

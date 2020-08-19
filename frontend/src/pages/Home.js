@@ -1,31 +1,43 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import axios from 'axios';
 import { Block } from '../components/Block';
 import { NavbarHome } from '../components/NavbarHome';
+import { BoxLoading } from 'react-loadingg';
 
 export const Home = () => {
 
     const [updates, setUpdates] = useState("");
+    const [loading, setLoader] = useState(false);
 
-    axios.get(`https://toringolimagestorage.s3.eu-north-1.amazonaws.com/news/updates.html`, {
-        responseType: 'text'
-    })
-        .then(response => {
-            if (response.status === 200 && response.data !== null) {
-                const data = response.data;
-                setUpdates(data);
-            }  
-        });
-    
+    useEffect(() => {
+        const fetchUpdates = async () => {
+            setLoader(true);
+
+            const result = await axios.get(`https://toringolimagestorage.s3.eu-north-1.amazonaws.com/news/updates.html`, {
+                responseType: 'text'
+            });
+            
+            setUpdates(result.data);
+            setLoader(false);  
+        };
+
+        fetchUpdates();
+    }, []);
+
     return (
         <Fragment>
-            <Block>
-                <NavbarHome />
+            {
+                (loading) ? 
+                < BoxLoading size="large" color="#27CEC5" />
+                :
+                <Block>
+                    <NavbarHome />
+                    
+                    <br />
+                    <div dangerouslySetInnerHTML={{__html: updates}} />
                 
-                <br />
-                <div dangerouslySetInnerHTML={{__html: updates}} />
-               
-            </Block>
+                </Block>
+            }
         </Fragment>
     )
 }

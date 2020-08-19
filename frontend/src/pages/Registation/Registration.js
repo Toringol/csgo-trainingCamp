@@ -9,6 +9,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import Button from '@material-ui/core/Button';
 import { NavLink } from 'react-router-dom';
+import { BoxLoading } from 'react-loadingg';
 
 
 const TextFieldCustom = withStyles({
@@ -66,6 +67,8 @@ const Registation = (props) => {
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    const [loading, setLoader] = useState(false);
     
     const handleChangeUsername = e => {
         setUsername(e.target.value);
@@ -80,6 +83,8 @@ const Registation = (props) => {
     }
     
     const handleSubmit = event => {
+        setLoader(true);
+
         event.preventDefault();
         axios.post(`http://localhost:8080/signup/`, {
             username: username,
@@ -93,131 +98,138 @@ const Registation = (props) => {
                     props.history.push(`/`);
                 }
             });
+        
+        setLoader(false);
     }
 
     return (
             <Fragment>
-                <Block>
-                    <div className="blockForm">
-                        <p>JOIN THE TRAINING CAMP</p>
-                        
-                        <form onSubmit={ handleSubmit }>
-                            <div className={classes.margin}>
-                                <Grid container spacing={1} alignItems="flex-end">
-                                    <Grid item>
-                                        <AccountCircle />
+                {
+                    (loading) ?
+                    < BoxLoading size="large" color="#27CEC5" />
+                    :
+                    <Block>
+                        <div className="blockForm">
+                            <p>JOIN THE TRAINING CAMP</p>
+                            
+                            <form onSubmit={ handleSubmit }>
+                                <div className={classes.margin}>
+                                    <Grid container spacing={1} alignItems="flex-end">
+                                        <Grid item>
+                                            <AccountCircle />
+                                        </Grid>
+                                        <Grid item>
+                                            <TextFieldCustom
+                                                autoComplete="off"
+                                                autoCorrect="off"
+                                                style={{ margin: 10, marginTop: 16, }}
+                                                id="input-with-icon-grid" 
+                                                label="Username"
+                                                className={ classes.textField }
+                                                onChange={ handleChangeUsername }
+                                                InputLabelProps={{
+                                                    className: classes.textFieldLabel
+                                                }}
+                                                InputProps={{
+                                                    className: classes.textField
+                                                }}
+                                            />
+                                        </Grid>
                                     </Grid>
-                                    <Grid item>
-                                        <TextFieldCustom
-                                            autoComplete="off"
-                                            autoCorrect="off"
-                                            style={{ margin: 10, marginTop: 16, }}
-                                            id="input-with-icon-grid" 
-                                            label="Username"
-                                            className={ classes.textField }
-                                            onChange={ handleChangeUsername }
-                                            InputLabelProps={{
-                                                className: classes.textFieldLabel
-                                            }}
-                                            InputProps={{
-                                                className: classes.textField
-                                            }}
-                                        />
+                                </div>
+        
+                                <div className={classes.margin}>
+                                    <Grid container spacing={1} alignItems="flex-end">
+                                        <Grid item>
+                                            <MailOutlineIcon />
+                                        </Grid>
+                                        <Grid item>
+                                            <TextFieldCustom
+                                                autoComplete="off"
+                                                autoCorrect="off"
+                                                style={{ margin: 10 }}
+                                                id="input-with-icon-grid" 
+                                                label="Email"
+                                                className={ classes.textField }
+                                                onChange={ handleChangeEmail }
+                                                InputLabelProps={{
+                                                    className: classes.textFieldLabel
+                                                }}
+                                                InputProps={{
+                                                    className: classes.textField
+                                                }}
+                                            />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </div>
-    
-                            <div className={classes.margin}>
-                                <Grid container spacing={1} alignItems="flex-end">
-                                    <Grid item>
-                                        <MailOutlineIcon />
+                                </div>
+        
+                                <div className={classes.margin}>
+                                    <Grid container spacing={1} alignItems="flex-end">
+                                        <Grid item>
+                                            <LockOpenIcon />
+                                        </Grid>
+                                        <Grid item>
+                                            <TextFieldCustom
+                                                autoComplete="off"
+                                                autoCorrect="off"
+                                                style={{ margin: 10 }}
+                                                id="input-with-icon-grid" 
+                                                label="Password"
+                                                type="password"
+                                                className={ classes.textField }
+                                                onChange={ handleChangePassword }
+                                                InputLabelProps={{
+                                                    className: classes.textFieldLabel
+                                                }}
+                                                InputProps={{
+                                                    className: classes.textField
+                                                }}
+                                            />
+                                        </Grid>
                                     </Grid>
-                                    <Grid item>
-                                        <TextFieldCustom
-                                            autoComplete="off"
-                                            autoCorrect="off"
-                                            style={{ margin: 10 }}
-                                            id="input-with-icon-grid" 
-                                            label="Email"
-                                            className={ classes.textField }
-                                            onChange={ handleChangeEmail }
-                                            InputLabelProps={{
-                                                className: classes.textFieldLabel
-                                            }}
-                                            InputProps={{
-                                                className: classes.textField
-                                            }}
-                                        />
+                                </div>
+        
+                                <div className={classes.margin}>
+                                    <Grid container spacing={1} alignItems="flex-end">
+                                        <Grid item>
+                                            <LockOpenIcon />
+                                        </Grid>
+                                        <Grid item>
+                                            <TextFieldCustom
+                                                autoComplete="off"
+                                                autoCorrect="off"
+                                                style={{ margin: 10 }}
+                                                id="input-with-icon-grid" 
+                                                label="Confirm Password"
+                                                type="password"
+                                                className={ classes.textField }
+                                                InputLabelProps={{
+                                                    className: classes.textFieldLabel
+                                                }}
+                                                InputProps={{
+                                                    className: classes.textField
+                                                }}
+                                            />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </div>
-    
-                            <div className={classes.margin}>
-                                <Grid container spacing={1} alignItems="flex-end">
-                                    <Grid item>
-                                        <LockOpenIcon />
-                                    </Grid>
-                                    <Grid item>
-                                        <TextFieldCustom
-                                            autoComplete="off"
-                                            autoCorrect="off"
-                                            style={{ margin: 10 }}
-                                            id="input-with-icon-grid" 
-                                            label="Password"
-                                            type="password"
-                                            className={ classes.textField }
-                                            onChange={ handleChangePassword }
-                                            InputLabelProps={{
-                                                className: classes.textFieldLabel
-                                            }}
-                                            InputProps={{
-                                                className: classes.textField
-                                            }}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </div>
-    
-                            <div className={classes.margin}>
-                                <Grid container spacing={1} alignItems="flex-end">
-                                    <Grid item>
-                                        <LockOpenIcon />
-                                    </Grid>
-                                    <Grid item>
-                                        <TextFieldCustom
-                                            autoComplete="off"
-                                            autoCorrect="off"
-                                            style={{ margin: 10 }}
-                                            id="input-with-icon-grid" 
-                                            label="Confirm Password"
-                                            type="password"
-                                            className={ classes.textField }
-                                            InputLabelProps={{
-                                                className: classes.textFieldLabel
-                                            }}
-                                            InputProps={{
-                                                className: classes.textField
-                                            }}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </div>
-    
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                className={ classes.submit }
-                            >
-                                Sign Up
-                            </Button>
-                        </form>
-                        
-                        <NavLink style={{ margin: 10 }} className="link" to="/signin">
-                            Already have an account? Sign in
-                        </NavLink>
-                    </div>
-                </Block>
+                                </div>
+        
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    className={ classes.submit }
+                                >
+                                    Sign Up
+                                </Button>
+                            </form>
+                            
+                            <NavLink style={{ margin: 10 }} className="link" to="/signin">
+                                Already have an account? Sign in
+                            </NavLink>
+                        </div>
+                    </Block>
+                }
             </Fragment>
         )
 }

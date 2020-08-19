@@ -9,6 +9,7 @@ import (
 	"github.com/Toringol/csgo-trainingCamp/backend/app/servercs/usecase"
 	"github.com/Toringol/csgo-trainingCamp/backend/config"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/viper"
 )
@@ -21,6 +22,8 @@ func main() {
 
 	listenAddr := viper.GetString("serverCSServiceListenAddr")
 
+	e := echo.New()
+
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "${time_rfc3339} [${method}] ${remote_ip}, ${uri} ${status} 'error':'${error}'\n",
 	}))
@@ -31,7 +34,7 @@ func main() {
 		AllowCredentials: true,
 	}))
 
-	servercshttp.NewUserHandler(e, usecase.NewUserUsecase(repository.NewUserMemoryRepository()))
+	servercshttp.NewServerCSHandler(e, usecase.NewServerCSUsecase(repository.NewUserMemoryRepository()))
 
 	e.Logger.Fatal(e.Start(listenAddr))
 }

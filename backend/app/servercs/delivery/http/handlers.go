@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Toringol/csgo-trainingCamp/backend/app/servercs"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 // userHandlers - http handlers structure

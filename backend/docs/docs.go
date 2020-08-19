@@ -21,13 +21,25 @@ var doc = `{
         "contact": {},
         "license": {},
         "version": "{{.Version}}"
-    },
-    "host": "{{.Host}}",
+	},
+	"host": "{{.Host}}",
 	"basePath": "{{.BasePath}}",
 	"tags": [
 		{
 			"name": "User Service",
 			"description": "All operations with User"
+		},
+		{
+			"name": "ServerCS Service",
+			"description": "All operations with ServerCS"
+		}
+	],
+	"servers": [
+		{
+			"url": "http://localhost:8080"
+		},
+		{
+			"url": "http://localhost:8081"
 		}
 	],
 	"paths": {
@@ -358,6 +370,72 @@ var doc = `{
 					}
 				}
 			}
+		},
+		"/servers": {
+			"get": {
+				"description": "Home page updates and blog posts, checks session",
+				"tags": [
+					"ServerCS Service",
+				],
+				"consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+				],
+				"summary": "Get all servers info",
+				"operationId": "handleListServers",
+				"parameters": [
+					{
+						
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "All OK",
+                        "schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"$ref": "#/definitions/ServerCS"
+							},
+							"example": [
+								{
+									"ID": 1,
+									"IP": "127.0.0.1:8001",
+									"Category": "1x1",
+									"Map": "aim",
+									"CurrentPlayers": 0,
+									"MaxPlayers": 2
+								},
+								{
+									"ID": 2,
+									"IP": "127.0.0.1:8002",
+									"Category": "1x1",
+									"Map": "aim",
+									"CurrentPlayers": 1,
+									"MaxPlayers": 2,
+									"Password": "1234"
+								}
+							]
+						}
+					},
+					"5XX": {
+						"description": "Server error",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							},
+							"example": {
+								"message": "Internal DB Error"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -403,6 +481,36 @@ var doc = `{
                     "type": "string"
                 }
             }    
+		},
+		"ServerCS": {
+			"description": "ServerCS structure in DataBase",
+			"type": "object",
+            "properties": {
+                "ID": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "IP": {
+                    "type": "string"
+                },
+                "Category": {
+                    "type": "string"
+                },
+                "Map": {
+                    "type": "string"
+                },
+                "CurrentPlayers": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"MaxPlayers": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"Password": {
+                    "type": "string"
+                }
+            }
 		}
     },
 }`

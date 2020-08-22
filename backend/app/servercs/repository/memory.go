@@ -37,7 +37,7 @@ func NewUserMemoryRepository() servercs.Repository {
 func (repo *Repository) ListServers() ([]*model.ServerCS, error) {
 	serversCS := []*model.ServerCS{}
 
-	rows, err := repo.DB.Query("SELECT id, ip, category, map, currentplayers," +
+	rows, err := repo.DB.Query("SELECT server_id, ip, category, map, currentplayers," +
 		"maxplayers, password FROM servers")
 	if err != nil {
 		return nil, err

@@ -3,6 +3,7 @@ package http
 import (
 	"database/sql"
 	"encoding/base64"
+	"log"
 	"net/http"
 
 	"github.com/Toringol/csgo-trainingCamp/backend/app/auth/cookies"
@@ -25,6 +26,7 @@ func NewUserHandler(e *echo.Echo, us user.Usecase) {
 	// User handlers
 	e.GET("/", handlers.handleHomePage)
 	e.GET("/logout/", handlers.handleLogout)
+	e.GET("/userStats/", handlers.handleProfileStats)
 
 	e.POST("/signup/", handlers.handleSignUp)
 	e.POST("/signin/", handlers.handleSignIn)
@@ -93,6 +95,16 @@ func (h *userHandlers) handleSignUp(ctx echo.Context) error {
 
 	userInput.ID = lastID
 
+	userStats := new(model.UserStats)
+	userStats.ID = lastID
+	userStats.Title = "Newbie"
+	userStats.Rank = "Newbie"
+
+	_, err = h.usecase.CreateUserStats(userStats)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
+	}
+
 	_, err = cookies.SetSession(ctx, userInput)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Cookie set error")
@@ -141,4 +153,27 @@ func (h *userHandlers) handleSignIn(ctx echo.Context) error {
 	userRecord.Password = ""
 
 	return ctx.JSON(http.StatusOK, userRecord)
+}
+
+// handleProfileStats - check cookie and return user`s statistics data
+func (h *userHandlers) handleProfileStats(ctx echo.Context) error {
+	session, err := cookies.СheckSession(ctx)
+	if err != nil || session == nil {
+		return ctx.JSON(http.StatusOK, nil)
+	}
+
+	userData, err := h.usecase.SelectUserByUsername(session.Username)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
+	}
+
+	userStats, err := h.usecase.SelectUserStatsByID(userData.ID)
+	if err != nil {
+		log.Println(err)
+		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
+	}
+
+	userStats.ID = 0
+
+	return ctx.JSON(http.StatusOK, userStats)
 }

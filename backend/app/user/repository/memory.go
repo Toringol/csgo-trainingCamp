@@ -37,7 +37,7 @@ func NewUserMemoryRepository() user.Repository {
 func (repo *Repository) SelectUserByID(id int64) (*model.User, error) {
 	record := &model.User{}
 	err := repo.DB.
-		QueryRow("SELECT id, username, email, password, avatar FROM users WHERE id = ?", id).
+		QueryRow("SELECT user_id, username, email, password, avatar FROM users WHERE user_id = ?", id).
 		Scan(&record.ID, &record.Username, &record.Email, &record.Password, &record.Avatar)
 	if err != nil {
 		return nil, err
@@ -49,8 +49,22 @@ func (repo *Repository) SelectUserByID(id int64) (*model.User, error) {
 func (repo *Repository) SelectUserByUsername(username string) (*model.User, error) {
 	record := &model.User{}
 	err := repo.DB.
-		QueryRow("SELECT id, username, email, password, avatar FROM users WHERE username = ?", username).
+		QueryRow("SELECT user_id, username, email, password, avatar FROM users WHERE username = ?", username).
 		Scan(&record.ID, &record.Username, &record.Email, &record.Password, &record.Avatar)
+	if err != nil {
+		return nil, err
+	}
+	return record, nil
+}
+
+// SelectUserStatsByID - select all user`s stats by user_id
+func (repo *Repository) SelectUserStatsByID(id int64) (*model.UserStats, error) {
+	record := &model.UserStats{}
+	err := repo.DB.
+		QueryRow("SELECT * FROM usersStats WHERE user_id = ?", id).
+		Scan(&record.ID, &record.Rank, &record.Title, &record.MatchPlayed, &record.MatchWon,
+			&record.MatchLost, &record.MatchDrew, &record.Kills, &record.Deaths, &record.Assists,
+			&record.HS, &record.Damage, &record.Rounds)
 	if err != nil {
 		return nil, err
 	}
@@ -72,15 +86,41 @@ func (repo *Repository) CreateUser(elem *model.User) (int64, error) {
 	return result.LastInsertId()
 }
 
+// CreateUserStats - create record in userStats table
+func (repo *Repository) CreateUserStats(elem *model.UserStats) (int64, error) {
+	result, err := repo.DB.Exec(
+		"INSERT INTO usersStats (`user_id`, `rank`, `title`, `matchPlayed`, `matchWon`, `matchLost`, "+
+			"`matchDrew`, `kills`, `deaths`, `assists`, `hs`, `damage`, `rounds`) "+
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		elem.ID,
+		elem.Rank,
+		elem.Title,
+		elem.MatchPlayed,
+		elem.MatchWon,
+		elem.MatchLost,
+		elem.MatchDrew,
+		elem.Kills,
+		elem.Deaths,
+		elem.Assists,
+		elem.HS,
+		elem.Damage,
+		elem.Rounds,
+	)
+	if err != nil {
+		return 0, err
+	}
+	return result.LastInsertId()
+}
+
 // UpdateUser - update user`s data in DataBase
 func (repo *Repository) UpdateUser(elem *model.User) (int64, error) {
 	result, err := repo.DB.Exec(
 		"UPDATE users SET"+
 			"`username` = ?"+
-			"`email` = ?"+
+			",`email` = ?"+
 			",`password` = ?"+
-			",`avatar` = ?"+
-			"WHERE id = ?",
+			",`avatar` = ? "+
+			"WHERE user_id = ?",
 		elem.Username,
 		elem.Email,
 		elem.Password,
@@ -93,10 +133,59 @@ func (repo *Repository) UpdateUser(elem *model.User) (int64, error) {
 	return result.RowsAffected()
 }
 
+// UpdateUserStats - update user`s stats data in DataBase
+func (repo *Repository) UpdateUserStats(elem *model.UserStats) (int64, error) {
+	result, err := repo.DB.Exec(
+		"UPDATE usersStats SET"+
+			"`rank` = ?"+
+			",`title` = ?"+
+			",`matchPlayed` = ?"+
+			",`matchWon` = ?"+
+			",`matchLost` = ?"+
+			",`matchDrew` = ?"+
+			",`kills` = ?"+
+			",`deaths` = ?"+
+			",`assists` = ?"+
+			",`hs` = ?"+
+			",`damage` = ?"+
+			",`rounds` = ? "+
+			"WHERE user_id = ?",
+		elem.Rank,
+		elem.Title,
+		elem.MatchPlayed,
+		elem.MatchWon,
+		elem.MatchLost,
+		elem.MatchDrew,
+		elem.Kills,
+		elem.Deaths,
+		elem.Assists,
+		elem.HS,
+		elem.Damage,
+		elem.Rounds,
+		elem.ID,
+	)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected()
+}
+
 // DeleteUser - delete user`s record in DataBase
 func (repo *Repository) DeleteUser(id int64) (int64, error) {
 	result, err := repo.DB.Exec(
-		"DELETE FROM users WHERE id = ?",
+		"DELETE FROM users WHERE user_id = ?",
+		id,
+	)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected()
+}
+
+// DeleteUserStats - delete user`s stats record in DataBase
+func (repo *Repository) DeleteUserStats(id int64) (int64, error) {
+	result, err := repo.DB.Exec(
+		"DELETE FROM usersStats WHERE user_id = ?",
 		id,
 	)
 	if err != nil {

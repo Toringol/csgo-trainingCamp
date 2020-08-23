@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
+
 * {
   margin: 0;
   padding: 0;
@@ -26,6 +27,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px 5%;
+  height: 7vh;
 }
 
 .content {
@@ -40,6 +42,8 @@ header {
   text-align: center;
   padding-bottom: 20px;
   margin-top: 2%;
+  height: 7vh;
+  max-height: 10vh;
 }
 
 li, .nav__link {
@@ -126,4 +130,19 @@ li, .nav__link {
   flex-direction: column;
   align-items: center;
   justify-items: center;
+}
+
+.Link_image {
+   opacity: 60%;
+   border: 2px solid #F2F3F4;
+}
+
+.Link_image:hover {
+  opacity: 100%;
+  border: 2px solid #1E90FF;
+}
+
+.TCtext {
+  font-family: Montserrat;
+  text-decoration: none !important; 
 }

@@ -1,7 +1,8 @@
-import React from 'react'
-import {NavLink} from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { CustomMenu } from '../CustomMenu';
 
-export const Navbar = () => (
+const Navbar = (props) => (
     <header className="header">
         <img className="logo" src={process.env.PUBLIC_URL + '/logo.png'} alt="logo"></img>
         <nav className="navbar">
@@ -21,12 +22,25 @@ export const Navbar = () => (
                         About
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink className="nav__link" to="/signup">
-                        Sign Up / Sign In
-                    </NavLink>
-                </li>
+                { 
+                props.isAuth ? 
+                    <li>
+                        <div>
+                            <img className="avatar" src={props.avatar} alt="avatar" />
+                            {props.username}
+                            <CustomMenu />
+                        </div>
+                    </li>
+                :
+                    <li>
+                        <NavLink className="nav__link" to="/signin">
+                            Sign Up / Sign In
+                        </NavLink>
+                    </li>
+                }
             </ul>
         </nav>
     </header>
 )
+
+export default Navbar;

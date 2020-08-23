@@ -3,13 +3,14 @@ package http
 import (
 	"database/sql"
 	"encoding/base64"
+	"log"
 	"net/http"
 
 	"github.com/Toringol/csgo-trainingCamp/backend/app/auth/cookies"
 	"github.com/Toringol/csgo-trainingCamp/backend/app/model"
 	"github.com/Toringol/csgo-trainingCamp/backend/app/user"
 	"github.com/Toringol/csgo-trainingCamp/backend/tools"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/spf13/viper"
 )
 
@@ -25,6 +26,7 @@ func NewUserHandler(e *echo.Echo, us user.Usecase) {
 	// User handlers
 	e.GET("/", handlers.handleHomePage)
 	e.GET("/logout/", handlers.handleLogout)
+	e.GET("/userStats/", handlers.handleProfileStats)
 
 	e.POST("/signup/", handlers.handleSignUp)
 	e.POST("/signin/", handlers.handleSignIn)
@@ -32,7 +34,21 @@ func NewUserHandler(e *echo.Echo, us user.Usecase) {
 
 // handleHomePage - home page with updates and blog
 func (h *userHandlers) handleHomePage(ctx echo.Context) error {
-	return ctx.JSON(http.StatusOK, "")
+	session, err := cookies.СheckSession(ctx)
+	if err != nil || session == nil {
+		return ctx.JSON(http.StatusOK, nil)
+	}
+
+	userData, err := h.usecase.SelectUserByUsername(session.Username)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
+	}
+
+	userData.ID = 0
+	userData.Email = ""
+	userData.Password = ""
+
+	return ctx.JSON(http.StatusOK, userData)
 }
 
 // handleLogout - delete session
@@ -42,7 +58,7 @@ func (h *userHandlers) handleLogout(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Cookie del error")
 	}
 
-	return ctx.JSON(http.StatusOK, "")
+	return ctx.JSON(http.StatusOK, nil)
 }
 
 // handleSignUp - create user record in DB if username is not occupied
@@ -78,6 +94,16 @@ func (h *userHandlers) handleSignUp(ctx echo.Context) error {
 	}
 
 	userInput.ID = lastID
+
+	userStats := new(model.UserStats)
+	userStats.ID = lastID
+	userStats.Title = "Newbie"
+	userStats.Rank = "Newbie"
+
+	_, err = h.usecase.CreateUserStats(userStats)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
+	}
 
 	_, err = cookies.SetSession(ctx, userInput)
 	if err != nil {
@@ -127,4 +153,27 @@ func (h *userHandlers) handleSignIn(ctx echo.Context) error {
 	userRecord.Password = ""
 
 	return ctx.JSON(http.StatusOK, userRecord)
+}
+
+// handleProfileStats - check cookie and return user`s statistics data
+func (h *userHandlers) handleProfileStats(ctx echo.Context) error {
+	session, err := cookies.СheckSession(ctx)
+	if err != nil || session == nil {
+		return ctx.JSON(http.StatusUnauthorized, nil)
+	}
+
+	userData, err := h.usecase.SelectUserByUsername(session.Username)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
+	}
+
+	userStats, err := h.usecase.SelectUserStatsByID(userData.ID)
+	if err != nil {
+		log.Println(err)
+		return echo.NewHTTPError(http.StatusInternalServerError, "Internal DB Error")
+	}
+
+	userStats.ID = 0
+
+	return ctx.JSON(http.StatusOK, userStats)
 }

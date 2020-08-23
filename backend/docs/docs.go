@@ -371,6 +371,127 @@ var doc = `{
 				}
 			}
 		},
+		"/userStats/": {
+			"get": {
+				"description": "Get user statistics data",
+				"tags": [
+					"User Service",
+				],
+				"consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+				],
+				"summary": "Check cookie and return user statistics data",
+				"operationId": "handleProfileStats",
+				"parameters": [
+					{
+						"in": "cookie",
+						"name": "SessionID",
+						"description": "Encrypted session in cookie header"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Valid cookie",
+                        "schema": {
+							"type": "object",
+							"properties": {
+								"Rank": {
+									"type": "string"
+								},
+								"Title": {
+									"type": "string"
+								},
+								"MatchPlayed": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"MatchWon": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"MatchLost": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"MatchDrew": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"Kills": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"Deaths": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"Assists": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"HS": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"Damage": {
+									"type": "integer",
+									"format": "int64"
+								},
+								"Rounds": {
+									"type": "integer",
+									"format": "int64"
+								}
+							},
+							"example": {
+								"Rank": "Newbie",
+								"Title": "Newbie",
+								"MatchPlayed": 1,
+								"MatchWon": 1,
+								"MatchLost": 0,
+								"MatchDrew": 0,
+								"Kills": 16,
+								"Deaths": 8,
+								"Assists": 8,
+								"HS": 50,
+								"Damage": 1600,
+								"Rounds": 16
+							}
+						}
+					},
+					"401": {
+						"description": "Without or invalid cookie",
+                        "schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							},
+							"example": {
+								"message": "nil"
+							}
+						}
+					},
+					"5XX": {
+						"description": "Server error",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string"
+								}
+							},
+							"example": {
+								"message": "Internal DB Error"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/servers": {
 			"get": {
 				"description": "Home page updates and blog posts, checks session",
@@ -459,6 +580,62 @@ var doc = `{
                 "Avatar": {
                     "type": "string"
                 }
+            }    
+		},
+		"UserStats": {
+			"description": "User stats structure in DataBase",
+			"type": "object",
+            "properties": {
+                "ID": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Rank": {
+                    "type": "string"
+                },
+                "Title": {
+                    "type": "string"
+                },
+                "MatchPlayed": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"MatchWon": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"MatchLost": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"MatchDrew": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"Kills": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"Deaths": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"Assists": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"HS": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"Damage": {
+                    "type": "integer",
+                    "format": "int64"
+				},
+				"Rounds": {
+                    "type": "integer",
+                    "format": "int64"
+				}
             }    
 		},
 		"SessionID": {

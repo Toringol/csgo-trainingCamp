@@ -159,7 +159,7 @@ func (h *userHandlers) handleSignIn(ctx echo.Context) error {
 func (h *userHandlers) handleProfileStats(ctx echo.Context) error {
 	session, err := cookies.СheckSession(ctx)
 	if err != nil || session == nil {
-		return ctx.JSON(http.StatusOK, nil)
+		return ctx.JSON(http.StatusUnauthorized, nil)
 	}
 
 	userData, err := h.usecase.SelectUserByUsername(session.Username)

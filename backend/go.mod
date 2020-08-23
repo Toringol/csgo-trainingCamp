@@ -3,6 +3,7 @@ module github.com/Toringol/csgo-trainingCamp/backend
 go 1.13
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/Toringol/nonlinearity v0.0.0-20200419161811-7b797b1c65bf
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/aws/aws-sdk-go v1.33.1
@@ -10,6 +11,7 @@ require (
 	github.com/go-openapi/spec v0.19.9 // indirect
 	github.com/go-openapi/swag v0.19.9 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/golang/mock v1.3.1
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/gorilla/securecookie v1.1.1
 	github.com/labstack/echo v3.3.10+incompatible

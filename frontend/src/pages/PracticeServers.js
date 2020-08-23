@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react'
 import ClickableImage from '../components/ClickableImage'
 
-
 const GeneralContentStyle = {
     width: "100%",
     height: "100%",

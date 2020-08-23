@@ -1,15 +1,5 @@
 import React, {Fragment} from 'react'
-import {NavLink} from 'react-router-dom'
 import ClickableImage from '../components/ClickableImage'
-
-import Inferno from './src/Theory/Inferno.png';
-import Mirage from './src/Theory/Mirage.png';
-import Overpass from './src/Theory/Overpass.png';
-import Cache from './src/Theory/Cache.png';
-import Dust2 from './src/Theory/Dust2.png';
-import Train from './src/Theory/Train.png';
-import Nuke from './src/Theory/Nuke.png';
-import Vertigo from './src/Theory/Vertigo.png';
 
 const TextStyle = {
     position: "relative",

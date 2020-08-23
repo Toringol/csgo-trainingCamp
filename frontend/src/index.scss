@@ -10,7 +10,7 @@ html,
 body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 0.15em;
   background: linear-gradient(90deg, #414345 0%, #232526 100%);
 }
@@ -27,7 +27,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px 5%;
-  height: 7vh;
+  margin-bottom: 10px;
 }
 
 .content {
@@ -162,7 +162,7 @@ li .menu {
 
 div .inner_post {
   margin-bottom: 30px;
-  max-width: 1024px;
+  max-width: 900px;
 }
 
 div .inner_post p {

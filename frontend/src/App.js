@@ -11,12 +11,12 @@ import Logout from './components/Logout';
 import { Blog } from './pages/Blog';
 import { Theory } from './pages/Theory';
 import { TacticEditor } from './pages/TacticEditor';
-import { Statistics } from './pages/Statistics';
 import { Provider } from 'react-redux';
 import ProtectedRoute from './components/ProtectedRoute';
 import store from './redux/reduxStore';
 import { Statistics } from './pages/Statistics';
 import { Settings } from './pages/Settings';
+import { PracticeServers } from './pages/PracticeServers';
 
 function App() {
   return (
@@ -26,12 +26,12 @@ function App() {
           <NavbarContainer />
           <div className="content">
             <Switch>
-              <Route path={'/'} exact component={Home}/>
-              <Route path={'/blog'} component={Blog}/>
-              <Route path={'/training'} component={Training}/>
-              <Route path={'/about'} component={About}/>
-              <Route path={'/servers'} component={PracticeServers}/>
-              <Route path={'/theory'} component={Theory}/>
+              <Route path={'/'} exact component={ Home }/>
+              <Route path={'/blog'} component={ Blog }/>
+              <Route path={'/training'} component={ Training }/>
+              <Route path={'/about'} component={ About }/>
+              <Route path={'/servers'} component={ PracticeServers }/>
+              <Route path={'/theory'} component={ Theory }/>
               <Route path={'/tacticeditor'} component={TacticEditor}/>
               <Route path={'/statistics'} component={ Statistics }/>
               <Route path={'/settings'} component={ Settings }/>

@@ -14,7 +14,7 @@ type Repository struct {
 	DB *sql.DB
 }
 
-// NewUserMemoryRepository - create connection and return new repository
+// NewServerMemoryRepository - create connection and return new repository
 func NewServerMemoryRepository() servercs.Repository {
 	dsn := viper.GetString("database")
 	dsn += "&charset=utf8"
@@ -37,7 +37,7 @@ func NewServerMemoryRepository() servercs.Repository {
 func (repo *Repository) ListServers() ([]*model.ServerCS, error) {
 	serversCS := []*model.ServerCS{}
 
-	rows, err := repo.DB.Query("SELECT server_id, ip, category, map, currentplayers," +
+	rows, err := repo.DB.Query("SELECT server_id, ip, category, map, currentplayers, " +
 		"maxplayers, password FROM servers")
 	if err != nil {
 		return nil, err

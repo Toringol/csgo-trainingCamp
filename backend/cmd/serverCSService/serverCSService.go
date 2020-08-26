@@ -34,7 +34,7 @@ func main() {
 		AllowCredentials: true,
 	}))
 
-	servercshttp.NewServerCSHandler(e, usecase.NewServerCSUsecase(repository.NewUserMemoryRepository()))
+	servercshttp.NewServerCSHandler(e, usecase.NewServerCSUsecase(repository.NewServerMemoryRepository()))
 
 	e.Logger.Fatal(e.Start(listenAddr))
 }

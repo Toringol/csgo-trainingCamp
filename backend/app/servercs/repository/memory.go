@@ -15,7 +15,7 @@ type Repository struct {
 }
 
 // NewUserMemoryRepository - create connection and return new repository
-func NewUserMemoryRepository() servercs.Repository {
+func NewServerMemoryRepository() servercs.Repository {
 	dsn := viper.GetString("database")
 	dsn += "&charset=utf8"
 	dsn += "&interpolateParams=true"

@@ -1,12 +1,13 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState, useEffect} from 'react';
+import axios from 'axios';
 import { Block } from '../components/Block'
 import CircleImage from './src/Statisctics/circle.png'
 import { makeStyles } from '@material-ui/core/styles';
 import Cup from './src/Statisctics/cup.png'
 import Headshot from './src/Statisctics/headshot.png'
 import AimImage from './src/Statisctics/aim.png'
-
-const AvatarImage = require('./src/Avatars/man.png');
+import { connect } from 'react-redux';
+import { BoxLoading } from 'react-loadingg';
 
 const StatisticArea = {
     width: 1000,
@@ -25,17 +26,6 @@ const Nickname = {
     fontSize: 24,
     color: "#F2F3F4",
     height: "fit-content"
-}
-
-const Avatar = {
-    backgroundImage: "url(" + AvatarImage + ")",
-    backgroundPosition: "center",
-    backgroundSize: "100%",
-    borderRadius: "50%",
-    width: "28%",
-    height: "43%",
-    marginLeft: 20,
-    marginRight: 20
 }
 
 const Info = {
@@ -155,146 +145,202 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Statistics = () => {
+const Statistics = (props) => {
     const classes = useStyles();
+
+    const [statistics, setStatistics] = useState({
+        // rank: '',
+        // title: '',
+        // matchPlayed: 0,
+        // matchWon: 0,
+        // matchLost: 0,
+        // matchDrew: 0,
+        // damage: 0,
+        // deaths: 0,
+        // assists: 0,
+        // hs: 0,
+        // kills: 0,
+        // rounds: 0
+    });
+
+    const [loading, setLoader] = useState(false);
+
+    useEffect(() => {
+        const fetchUpdates = async () => {
+            setLoader(true);
+
+            const result = await axios.get(`http://localhost:8080/userStats/`, {
+                responseType: 'text',
+                withCredentials: true,
+            });
+
+            setStatistics(result.data);
+            
+            setLoader(false);  
+        };
+
+        fetchUpdates();
+    }, []);
+
     return (
         <Fragment>
-            <Block style={{ padding: 0 }}>
-                <div style={StatisticArea}>
+            {
+                (loading) ?
+                < BoxLoading size="large" color="#27CEC5" />
+                :
+                <Block style={{ padding: 0 }}>
+                    <div style={ StatisticArea }>
 
-                    {/* Nickname */}
-                    <div style={Nickname}>
-                        <plaintext>Toringol</plaintext>
-                    </div>
+                        {/* Nickname */}
+                        <div style={Nickname}>
+                            <plaintext>Statistics</plaintext>
+                        </div>
 
-                    {/* Avatar */}
-                    <div style={Avatar}></div>
+                        {/* Avatar */}
+                        <div style={ {
+                            backgroundImage:`url(${props.avatar})`,
+                            backgroundPosition: "center",
+                            backgroundSize: "100%",
+                            borderRadius: "50%",
+                            width: "28%",
+                            height: "40%",
+                            marginLeft: 20,
+                            marginRight: 20
+                        } }></div>
 
-                    {/* Info area */}
-                    <div style={Info}>
-                        <div style={Entry}>
-                            <small style={Bleached}>Rank</small>
-                            <plaintext>Beginner</plaintext>
+                        {/* Info area */}
+                        <div style={ Info }>
+                            <div style={ Entry }>
+                                <small style={ Bleached }>Rank</small>
+                                <plaintext>{ statistics.rank }</plaintext>
+                            </div>
+                            <div style={Entry}>
+                                <small style={ Bleached }>Title</small>
+                                <plaintext>{ statistics.title }</plaintext>
+                            </div>
+                            <div style={ Entry }>
+                                <small style={ Bleached }>Position in Leaderboard</small>
+                                <plaintext style={{}}>#1</plaintext>
+                            </div>
                         </div>
-                        <div style={Entry}>
-                            <small style={Bleached}>Title</small>
-                            <plaintext>Scream Master</plaintext>
-                        </div>
-                        <div style={Entry}>
-                            <small style={Bleached}>Position in Leaderboard</small>
-                            <plaintext style={{}}>#1</plaintext>
-                        </div>
-                    </div>
 
-                    {/* K/D area */}
-                    <div style={Object.assign({},   StatisticSubArea, 
-                                                    {backgroundImage: "url(" + CircleImage + ")"},
-                                                    {backgroundRepeat: "no-repeat"},
-                                                    {backgroundPosition: "center"},
-                                                    )}>
-                        <plaintext style={{fontSize: 19, position: "relative", bottom: "36%", right: "36%"}}>K/D</plaintext>
-                        <plaintext style={{fontSize: 35}}>2.16</plaintext>
-                    </div>
+                        {/* K/D area */}
+                        <div style={Object.assign({},   StatisticSubArea, 
+                                                        {backgroundImage: "url(" + CircleImage + ")"},
+                                                        {backgroundRepeat: "no-repeat"},
+                                                        {backgroundPosition: "center"},
+                                                        )}>
+                            <plaintext style={{fontSize: 19, position: "relative", bottom: "36%", right: "36%"}}>K/D</plaintext>
+                            <plaintext style={{fontSize: 35}}>2.16</plaintext>
+                        </div>
 
-                    {/* Win rate area */}
-                    <div style={StatisticSubArea}>
-                        <div className={classes.Header}>
-                            <plaintext className={classes.HeaderText}>WIN RATE</plaintext>
-                        </div>
-                        <div className={classes.Center}>
-                            <div className={classes.Cup}></div>
-                            <div className={classes.Percentage}>
-                                <plaintext>57%</plaintext>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
+                        {/* Win rate area */}
+                        <div style={ StatisticSubArea }>
+                            <div className={classes.Header}>
+                                <plaintext className={classes.HeaderText}>WIN RATE</plaintext>
+                            </div>
+                            <div className={classes.Center}>
+                                <div className={classes.Cup}></div>
+                                <div className={classes.Percentage}>
+                                    <plaintext>57%</plaintext>
+                                    <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
+                                </div>
+                            </div>
+                            <div className={classes.Lower}>
+                                <div className={classes.Line}>
+                                    <plaintext>PLAYED</plaintext>
+                                    <plaintext>{ statistics.matchPlayed }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <div className={classes.Line}>
+                                    <plaintext>WON</plaintext>
+                                    <plaintext>{ statistics.matchWon }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <div className={classes.Line}>
+                                    <plaintext>LOST</plaintext>
+                                    <plaintext>{ statistics.matchLost }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <div className={classes.Line}>
+                                    <plaintext>DREW</plaintext>
+                                    <plaintext>{ statistics.matchDrew }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
                             </div>
                         </div>
-                        <div className={classes.Lower}>
-                            <div className={classes.Line}>
-                                <plaintext>PLAYED</plaintext>
-                                <plaintext>87</plaintext>
+                        
+                        {/* HS area */}
+                        <div style={StatisticSubArea}>
+                            <div className={classes.Header}>
+                                <plaintext className={classes.HeaderText}>HS %</plaintext>
                             </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                            <div className={classes.Line}>
-                                <plaintext>WON</plaintext>
-                                <plaintext>50</plaintext>
+                            <div className={classes.Center}>
+                                <div className={classes.Headshot}></div>
+                                <div className={classes.Percentage}>
+                                    <plaintext>56%</plaintext>
+                                    <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
+                                </div>
                             </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                            <div className={classes.Line}>
-                                <plaintext>LOST</plaintext>
-                                <plaintext>33</plaintext>
+                            <div className={classes.Lower}>
+                                <div className={classes.Line}>
+                                    <plaintext>KILLS</plaintext>
+                                    <plaintext>{ statistics.kills }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <div className={classes.Line}>
+                                    <plaintext>DEATH</plaintext>
+                                    <plaintext>{ statistics.deaths }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <div className={classes.Line}>
+                                    <plaintext>ASSISTS</plaintext>
+                                    <plaintext>{ statistics.assists }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <div className={classes.Line}>
+                                    <plaintext>HEADSHOTS</plaintext>
+                                    <plaintext>{ statistics.hs }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
                             </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                            <div className={classes.Line}>
-                                <plaintext>DREW</plaintext>
-                                <plaintext>4</plaintext>
-                            </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
                         </div>
-                    </div>
-                    
-                    {/* HS area */}
-                    <div style={StatisticSubArea}>
-                        <div className={classes.Header}>
-                            <plaintext className={classes.HeaderText}>HS %</plaintext>
-                        </div>
-                        <div className={classes.Center}>
-                            <div className={classes.Headshot}></div>
-                            <div className={classes.Percentage}>
-                                <plaintext>16%</plaintext>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
-                            </div>
-                        </div>
-                        <div className={classes.Lower}>
-                            <div className={classes.Line}>
-                                <plaintext>KILLS</plaintext>
-                                <plaintext>2522</plaintext>
-                            </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                            <div className={classes.Line}>
-                                <plaintext>DEATH</plaintext>
-                                <plaintext>1168</plaintext>
-                            </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                            <div className={classes.Line}>
-                                <plaintext>ASSISTS</plaintext>
-                                <plaintext>231</plaintext>
-                            </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                            <div className={classes.Line}>
-                                <plaintext>HEADSHOTS</plaintext>
-                                <plaintext>393</plaintext>
-                            </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                        </div>
-                    </div>
 
-                    {/* ADR area */}
-                    <div style={StatisticSubArea}>
-                        <div className={classes.Header}>
-                            <plaintext className={classes.HeaderText}>ADR</plaintext>
-                        </div>
-                        <div className={classes.Center}>
-                            <div className={classes.Aim}></div>
-                            <div className={classes.Percentage}>
-                                <plaintext>136</plaintext>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
+                        {/* ADR area */}
+                        <div style={StatisticSubArea}>
+                            <div className={classes.Header}>
+                                <plaintext className={classes.HeaderText}>ADR</plaintext>
                             </div>
-                        </div>
-                        <div className={classes.Lower}>
-                            <div className={classes.Line}>
-                                <plaintext>Damage</plaintext>
-                                <plaintext>26636</plaintext>
+                            <div className={classes.Center}>
+                                <div className={classes.Aim}></div>
+                                <div className={classes.Percentage}>
+                                    <plaintext>136</plaintext>
+                                    <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
+                                </div>
                             </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                            <div className={classes.Line}>
-                                <plaintext>Rounds</plaintext>
-                                <plaintext>536</plaintext>
+                            <div className={classes.Lower}>
+                                <div className={classes.Line}>
+                                    <plaintext>Damage</plaintext>
+                                    <plaintext>{ statistics.damage }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <div className={classes.Line}>
+                                    <plaintext>Rounds</plaintext>
+                                    <plaintext>{ statistics.rounds }</plaintext>
+                                </div>
+                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
                             </div>
-                            <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
                         </div>
                     </div>
-                </div>
-            </Block>
+                </Block>
+            }
         </Fragment>
     )
 }
+
+const mapStateToProps = (state) => ({
+    avatar: state.auth.avatar,
+    username: state.auth.username
+})
+
+export default connect(mapStateToProps)(Statistics);

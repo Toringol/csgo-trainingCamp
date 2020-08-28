@@ -14,7 +14,7 @@ import { TacticEditor } from './pages/TacticEditor';
 import { Provider } from 'react-redux';
 import ProtectedRoute from './components/ProtectedRoute';
 import store from './redux/reduxStore';
-import { Statistics } from './pages/Statistics';
+import Statistics from './pages/Statistics';
 import { Settings } from './pages/Settings';
 import { PracticeServers } from './pages/PracticeServers';
 

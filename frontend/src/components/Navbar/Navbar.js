@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { CustomMenu } from '../CustomMenu';
+import Avatar from '@material-ui/core/Avatar';
 
 const Navbar = (props) => (
     <header className="header">

@@ -23,7 +23,7 @@ const Nickname = {
     textAlign: "center",
     width: "100%",
     paddingTop: 10,
-    fontSize: 24,
+    fontSize: 20,
     color: "#F2F3F4",
     height: "fit-content"
 }
@@ -148,21 +148,7 @@ const useStyles = makeStyles((theme) => ({
 const Statistics = (props) => {
     const classes = useStyles();
 
-    const [statistics, setStatistics] = useState({
-        // rank: '',
-        // title: '',
-        // matchPlayed: 0,
-        // matchWon: 0,
-        // matchLost: 0,
-        // matchDrew: 0,
-        // damage: 0,
-        // deaths: 0,
-        // assists: 0,
-        // hs: 0,
-        // kills: 0,
-        // rounds: 0
-    });
-
+    const [statistics, setStatistics] = useState({});
     const [loading, setLoader] = useState(false);
 
     useEffect(() => {
@@ -192,13 +178,13 @@ const Statistics = (props) => {
                     <div style={ StatisticArea }>
 
                         {/* Nickname */}
-                        <div style={Nickname}>
+                        <div style={ Nickname }>
                             <plaintext>Statistics</plaintext>
                         </div>
 
                         {/* Avatar */}
                         <div style={ {
-                            backgroundImage:`url(${props.avatar})`,
+                            backgroundImage:`url(${ props.avatar })`,
                             backgroundPosition: "center",
                             backgroundSize: "100%",
                             borderRadius: "50%",
@@ -231,7 +217,7 @@ const Statistics = (props) => {
                                                         {backgroundPosition: "center"},
                                                         )}>
                             <plaintext style={{fontSize: 19, position: "relative", bottom: "36%", right: "36%"}}>K/D</plaintext>
-                            <plaintext style={{fontSize: 35}}>2.16</plaintext>
+                            <plaintext style={{fontSize: 35}}>{ statistics.kills / (statistics.deaths > 0 ? statistics.deaths : 1) }</plaintext>
                         </div>
 
                         {/* Win rate area */}
@@ -242,31 +228,31 @@ const Statistics = (props) => {
                             <div className={classes.Center}>
                                 <div className={classes.Cup}></div>
                                 <div className={classes.Percentage}>
-                                    <plaintext>57%</plaintext>
-                                    <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
+                                    <plaintext>{ statistics.matchWon / (statistics.matchLost > 0 ? statistics.matchLost : 1) }%</plaintext>
+                                    <hr style={{strokeLinecap: "round", width: "70%", border: "1px solid #A8A8A8"}}></hr>
                                 </div>
                             </div>
                             <div className={classes.Lower}>
-                                <div className={classes.Line}>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
                                     <plaintext>PLAYED</plaintext>
                                     <plaintext>{ statistics.matchPlayed }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                                <div className={classes.Line}>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
                                     <plaintext>WON</plaintext>
                                     <plaintext>{ statistics.matchWon }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                                <div className={classes.Line}>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
                                     <plaintext>LOST</plaintext>
                                     <plaintext>{ statistics.matchLost }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                                <div className={classes.Line}>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
                                     <plaintext>DREW</plaintext>
                                     <plaintext>{ statistics.matchDrew }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
                             </div>
                         </div>
                         
@@ -278,31 +264,31 @@ const Statistics = (props) => {
                             <div className={classes.Center}>
                                 <div className={classes.Headshot}></div>
                                 <div className={classes.Percentage}>
-                                    <plaintext>56%</plaintext>
-                                    <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
+                                    <plaintext>{ statistics.hs / (statistics.kills > 0 ? statistics.kills : 1) }%</plaintext>
+                                    <hr style={{strokeLinecap: "round", width: "70%", border: "1px solid #A8A8A8"}}></hr>
                                 </div>
                             </div>
                             <div className={classes.Lower}>
-                                <div className={classes.Line}>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
                                     <plaintext>KILLS</plaintext>
                                     <plaintext>{ statistics.kills }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                                <div className={classes.Line}>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
                                     <plaintext>DEATH</plaintext>
                                     <plaintext>{ statistics.deaths }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                                <div className={classes.Line}>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
                                     <plaintext>ASSISTS</plaintext>
                                     <plaintext>{ statistics.assists }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                                <div className={classes.Line}>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
                                     <plaintext>HEADSHOTS</plaintext>
                                     <plaintext>{ statistics.hs }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
                             </div>
                         </div>
 
@@ -314,21 +300,21 @@ const Statistics = (props) => {
                             <div className={classes.Center}>
                                 <div className={classes.Aim}></div>
                                 <div className={classes.Percentage}>
-                                    <plaintext>136</plaintext>
-                                    <hr style={{color: "#ABABAB", height: "1px", width: "70%", stroke: "solid"}}></hr>
+                                    <plaintext>{ statistics.damage / (statistics.rounds > 0 ? statistics.rounds : 1) }</plaintext>
+                                    <hr style={{strokeLinecap: "round", width: "70%", border: "1px solid #A8A8A8"}}></hr>
                                 </div>
                             </div>
                             <div className={classes.Lower}>
-                                <div className={classes.Line}>
-                                    <plaintext>Damage</plaintext>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
+                                    <plaintext>DAMAGE</plaintext>
                                     <plaintext>{ statistics.damage }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
-                                <div className={classes.Line}>
-                                    <plaintext>Rounds</plaintext>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
+                                <div className={classes.Line} style={{color: "#A8A8A8"}}>
+                                    <plaintext>ROUNDS</plaintext>
                                     <plaintext>{ statistics.rounds }</plaintext>
                                 </div>
-                                <hr style={{color: "#ABABAB", height: "1px", width: "80%", stroke: "solid"}}></hr>
+                                <hr style={{strokeLinecap: "round", width: "80%", border: "1px solid rgba(168, 168, 168, 0.7)"}}></hr>
                             </div>
                         </div>
                     </div>
